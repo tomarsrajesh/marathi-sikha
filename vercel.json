@@ -1,7 +1,19 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/public/$1" }
+  "functions": {
+    "api/translate.js": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/translate",
+      "dest": "/api/translate.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
   ]
 }
