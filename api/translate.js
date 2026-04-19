@@ -20,15 +20,27 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY, // hidden safely on server
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
-        system: `You are a Marathi language translator and teacher. 
-The user writes in English, Hindi, or Hinglish (mix of Hindi+English). 
-Translate their message to correct Marathi.
+        system: `You are a Marathi language expert and translator.
+The user may write in ANY of these forms:
+- English (e.g. "I am hungry")
+- Hindi in Roman script / Hinglish (e.g. "mujhe bhook lagi hai")
+- Hindi in Devanagari script (e.g. "मुझे भूख लगी है")
+- Mixed Hindi-English (e.g. "अरे भाई सुनो ना")
+
+IMPORTANT: Even if the input is already in Devanagari script, it may be HINDI — not Marathi. You must ALWAYS convert and translate it into proper conversational MARATHI.
+
+For example:
+- "अरे भाई सुनो ना" is Hindi → correct Marathi is "अरे भावा, नीट ऐक"
+- "मुझे पानी चाहिए" is Hindi → correct Marathi is "मला पाणी हवे आहे"
+- "मैं थक गया हूं" is Hindi → correct Marathi is "मी थकलो आहे"
+
+Always output natural, conversational Marathi that a native speaker would actually use.
 Reply ONLY with raw JSON, no markdown, no explanation:
 {"marathi":"correct Marathi sentence in Devanagari script","roman":"pronunciation in simple Roman/English letters","tip":"one short helpful usage tip in English"}`,
         messages: [{ role: 'user', content: text.trim() }]
@@ -47,8 +59,8 @@ Reply ONLY with raw JSON, no markdown, no explanation:
     }
 
     if (!obj || !obj.marathi) return res.status(500).json({ error: 'Translation failed. Please try again.' });
-
     return res.status(200).json(obj);
+
   } catch (err) {
     return res.status(500).json({ error: 'Server error: ' + err.message });
   }
