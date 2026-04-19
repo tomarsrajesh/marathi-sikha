@@ -745,10 +745,65 @@ function doTranslate(){
 
 document.getElementById('gobtn').addEventListener('click',doTranslate);
 document.getElementById('speakbtn').addEventListener('click',function(){
-  var t=document.getElementById('out-m').textContent;
-  if(!t||!window.speechSynthesis)return;
+  var t = document.getElementById('out-m').textContent;
+  if(!t || !window.speechSynthesis) {
+    alert('Sorry, your device does not support audio playback.');
+    return;
+  }
   speechSynthesis.cancel();
-  var u=new SpeechSynthesisUtterance(t);u.lang='mr-IN';speechSynthesis.speak(u);
+
+  function speak(voice) {
+    var u = new SpeechSynthesisUtterance(t);
+    u.rate = 0.85;   // slightly slower for learning
+    u.pitch = 1;
+    u.volume = 1;
+    if(voice) {
+      u.voice = voice;
+      u.lang = voice.lang;
+    } else {
+      u.lang = 'mr-IN';
+    }
+    u.onerror = function(e) {
+      // If mr-IN fails, try hi-IN (Hindi — similar Devanagari, better support)
+      var fallback = new SpeechSynthesisUtterance(t);
+      fallback.lang = 'hi-IN';
+      fallback.rate = 0.85;
+      var hiVoice = window.speechSynthesis.getVoices().find(function(v){
+        return v.lang === 'hi-IN' || v.lang.startsWith('hi');
+      });
+      if(hiVoice) fallback.voice = hiVoice;
+      speechSynthesis.speak(fallback);
+    };
+    speechSynthesis.speak(u);
+  }
+
+  // Try to find best voice — prefer mr-IN, fallback to hi-IN
+  function findBestVoice(voices) {
+    // First choice: exact Marathi
+    var mr = voices.find(function(v){ return v.lang === 'mr-IN' || v.lang === 'mr'; });
+    if(mr) return mr;
+    // Second choice: Hindi (same Devanagari script, widely available)
+    var hi = voices.find(function(v){ return v.lang === 'hi-IN' || v.lang.startsWith('hi'); });
+    if(hi) return hi;
+    return null;
+  }
+
+  var voices = window.speechSynthesis.getVoices();
+  if(voices && voices.length > 0) {
+    speak(findBestVoice(voices));
+  } else {
+    // Voices not loaded yet — wait for them
+    window.speechSynthesis.onvoiceschanged = function() {
+      var v = window.speechSynthesis.getVoices();
+      speak(findBestVoice(v));
+    };
+    // Also try directly after short delay (some browsers need this)
+    setTimeout(function(){
+      if(!speechSynthesis.speaking) {
+        speak(findBestVoice(window.speechSynthesis.getVoices()));
+      }
+    }, 300);
+  }
 });
 
 function makeChip(text){
