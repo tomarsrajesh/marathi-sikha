@@ -80,6 +80,9 @@ body {
 #ios-hint.show { display:block; }
 #ios-hint p { font-size:13px; color:var(--text2); line-height:1.6; }
 #iih-x { position:absolute; top:8px; right:10px; background:none; border:none; color:var(--text3); font-size:18px; cursor:pointer; }
+#android-hint { display:none; margin:10px 12px 0; background:var(--card2); border:1px solid var(--border2); border-radius:var(--r); padding:12px 14px; position:relative; }
+#android-hint.show { display:block; }
+#android-hint-x { position:absolute; top:8px; right:10px; background:none; border:none; color:var(--text3); font-size:18px; cursor:pointer; }
 .sp { display:inline-block; background:var(--fb); color:#fff; padding:1px 6px; border-radius:4px; font-size:11px; }
 
 /* ── HEADER ── */
@@ -396,17 +399,43 @@ nav {
 <body>
 <div class="shell">
 
-<!-- Install Banner -->
+<!-- Android Chrome Install Banner -->
 <div id="ibanner">
-  <div class="ib-text"><b>📲 Save to Home Screen</b><span>Install मराठी शिका as an app</span></div>
-  <button class="ib-btn" id="ib-install">Install</button>
+  <div class="ib-text"><b>📲 Add to Home Screen</b><span>Use मराठी शिका like a real app!</span></div>
+  <button class="ib-btn" id="ib-install">Install Free</button>
   <button class="ib-x" id="ib-close">✕</button>
 </div>
 
-<!-- iOS Hint -->
+<!-- iOS Safari Install Hint -->
 <div id="ios-hint">
   <button id="iih-x">✕</button>
-  <p>📲 <strong>iPhone:</strong> Tap <span class="sp">Share ↑</span> in Safari → <strong>"Add to Home Screen"</strong></p>
+  <div style="display:flex;align-items:flex-start;gap:10px">
+    <span style="font-size:26px;flex-shrink:0">📱</span>
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px">Save to iPhone Home Screen</p>
+      <p style="font-size:12px;color:var(--text2);line-height:1.8">
+        1. Tap <span style="display:inline-block;background:#007AFF;color:#fff;padding:1px 7px;border-radius:5px;font-size:11px">Share &#8593;</span> at bottom of Safari<br>
+        2. Tap <strong style="color:var(--text)">"Add to Home Screen"</strong><br>
+        3. Tap <strong style="color:var(--text)">"Add"</strong> &mdash; App icon saved! &#127881;
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Android Manual Hint -->
+<div id="android-hint">
+  <button id="android-hint-x">✕</button>
+  <div style="display:flex;align-items:flex-start;gap:10px">
+    <span style="font-size:26px;flex-shrink:0">🤖</span>
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px">Save to Android Home Screen</p>
+      <p style="font-size:12px;color:var(--text2);line-height:1.8">
+        1. Tap <strong style="color:var(--text)">3 dots menu &#8942;</strong> in Chrome<br>
+        2. Tap <strong style="color:var(--text)">"Add to Home screen"</strong><br>
+        3. Tap <strong style="color:var(--text)">"Add"</strong> &mdash; App icon saved! &#127881;
+      </p>
+    </div>
+  </div>
 </div>
 
 <!-- Header -->
@@ -528,8 +557,23 @@ nav {
         </ul>
       </div>
       <div class="a-card">
-        <h3>📲 Install as App</h3>
-        <p><b>Android:</b> Chrome ⋮ menu → Add to Home Screen<br><b>iPhone:</b> Safari → Share ↑ → Add to Home Screen</p>
+        <h3>📲 Add to Home Screen</h3>
+        <p style="margin-bottom:12px;font-size:13px;color:var(--text2)">Save this app on your phone — works like a real app!</p>
+
+        <!-- Android button -->
+        <button id="install-btn-profile" style="width:100%;padding:13px;background:linear-gradient(90deg,#4CAF50,#2196F3);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;">
+          🤖 Android — Tap to Install
+        </button>
+
+        <div style="background:var(--input-bg);border-radius:10px;padding:12px;margin-bottom:8px;">
+          <p style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">🤖 Android Chrome:</p>
+          <p style="font-size:12px;color:var(--text2);line-height:1.8;">1. Tap <b style="color:var(--text)">⋮ menu</b> (top right in Chrome)<br>2. Tap <b style="color:var(--text)">"Add to Home screen"</b><br>3. Tap <b style="color:var(--text)">"Add"</b> ✅</p>
+        </div>
+
+        <div style="background:var(--input-bg);border-radius:10px;padding:12px;">
+          <p style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">🍎 iPhone Safari:</p>
+          <p style="font-size:12px;color:var(--text2);line-height:1.8;">1. Tap <b style="color:var(--text)">Share ↑</b> button at bottom<br>2. Tap <b style="color:var(--text)">"Add to Home Screen"</b><br>3. Tap <b style="color:var(--text)">"Add"</b> ✅</p>
+        </div>
       </div>
       <div class="a-card">
         <h3>🔒 Privacy</h3>
@@ -596,11 +640,60 @@ var STORIES={
 var recog=null, deferredPrompt=null;
 
 // PWA
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;document.getElementById('ibanner').classList.add('show');});
-document.getElementById('ib-install').addEventListener('click',function(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;document.getElementById('ibanner').classList.remove('show');});});
-document.getElementById('ib-close').addEventListener('click',function(){document.getElementById('ibanner').classList.remove('show');});
-if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.navigator.standalone)document.getElementById('ios-hint').classList.add('show');
-document.getElementById('iih-x').addEventListener('click',function(){document.getElementById('ios-hint').classList.remove('show');});
+// PWA Install — Android Chrome (automatic prompt)
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  deferredPrompt=e;
+  document.getElementById('ibanner').classList.add('show');
+});
+
+// Android install button
+document.getElementById('ib-install').addEventListener('click',function(){
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(result){
+    deferredPrompt=null;
+    document.getElementById('ibanner').classList.remove('show');
+    if(result.outcome==='accepted'){
+      setStatus('App installed! Check your home screen.');
+    }
+  });
+});
+
+// Close Android banner — show manual instructions instead
+document.getElementById('ib-close').addEventListener('click',function(){
+  document.getElementById('ibanner').classList.remove('show');
+  // Show manual Android hint as fallback
+  var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(!isIOS) document.getElementById('android-hint').classList.add('show');
+});
+
+// iOS Safari — show step by step hint automatically
+var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+var isAndroid=/android/i.test(navigator.userAgent);
+var isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;
+
+if(isIOS && !isStandalone){
+  // Show iOS hint after 2 seconds so user sees the app first
+  setTimeout(function(){ document.getElementById('ios-hint').classList.add('show'); }, 2000);
+}
+
+// iOS close
+document.getElementById('iih-x').addEventListener('click',function(){
+  document.getElementById('ios-hint').classList.remove('show');
+});
+
+// Android manual hint close
+document.getElementById('android-hint-x').addEventListener('click',function(){
+  document.getElementById('android-hint').classList.remove('show');
+});
+
+// App installed event
+window.addEventListener('appinstalled',function(){
+  document.getElementById('ibanner').classList.remove('show');
+  document.getElementById('android-hint').classList.remove('show');
+  setStatus('✅ App installed on your home screen!');
+});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
 
 function setStatus(m){document.getElementById('status').textContent=m;}
@@ -666,22 +759,94 @@ document.querySelectorAll('.chip').forEach(function(c){
 });
 
 document.getElementById('micbtn').addEventListener('click',function(){
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){showErr('Voice works in Chrome. Please open in Chrome browser.');return;}
-  if(recog){recog.stop();return;}
-  recog=new SR();recog.lang='hi-IN';recog.interimResults=false;
   var btn=document.getElementById('micbtn');
-  btn.textContent='⏹';btn.classList.add('rec');
-  setStatus('🎙️ Listening… speak now');hideErr();
-  recog.onresult=function(e){
-    var t=e.results[0][0].transcript;
-    document.getElementById('inp').value=t;
-    if(document.getElementById('autoToggle').checked){setStatus('Got it! Translating…');doTranslate();}
-    else{setStatus('✅ "'+t+'" — tap Translate');}
-  };
-  recog.onerror=function(e){showErr('Mic error: '+e.error);};
-  recog.onend=function(){btn.textContent='🎤';btn.classList.remove('rec');recog=null;};
-  recog.start();
+
+  // Stop if already recording
+  if(recog){
+    recog.stop();
+    recog=null;
+    btn.textContent='🎤';btn.classList.remove('rec');
+    setStatus('');
+    return;
+  }
+
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+  // No Speech API available — use fallback message
+  if(!SR){
+    // iOS Safari < 14.5 fallback message
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(isIOS){
+      showErr('On iPhone: Make sure you are using Safari browser. Go to Settings → Safari → Microphone → Allow. Then try again.');
+    } else {
+      showErr('Voice input works in Chrome or Safari. Please use one of these browsers.');
+    }
+    return;
+  }
+
+  // Request mic permission explicitly first (important for iOS)
+  navigator.mediaDevices.getUserMedia({audio:true})
+  .then(function(stream){
+    // Stop the stream immediately — we just needed permission
+    stream.getTracks().forEach(function(t){t.stop();});
+
+    // Now start speech recognition
+    try {
+      recog = new SR();
+
+      // iOS Safari works best with en-US or empty lang
+      var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+      recog.lang = isIOS ? 'en-US' : 'hi-IN';
+      recog.interimResults = false;
+      recog.maxAlternatives = 1;
+      recog.continuous = false;
+
+      btn.textContent='⏹';btn.classList.add('rec');
+      setStatus('🎙️ Listening… speak now');hideErr();
+
+      recog.onresult=function(e){
+        var t='';
+        for(var i=0;i<e.results.length;i++){
+          if(e.results[i].isFinal) t+=e.results[i][0].transcript;
+        }
+        if(t){
+          document.getElementById('inp').value=t.trim();
+          if(document.getElementById('autoToggle').checked){
+            setStatus('Got it! Translating…');doTranslate();
+          } else {
+            setStatus('✅ "'+t.trim()+'" — tap Translate');
+          }
+        }
+      };
+
+      recog.onerror=function(e){
+        var msg='Mic error: '+e.error;
+        if(e.error==='not-allowed') msg='Microphone blocked. Go to Settings → Safari → Microphone → Allow this site.';
+        if(e.error==='no-speech') msg='No speech detected. Please try again and speak clearly.';
+        if(e.error==='network') msg='Network error. Please check your connection.';
+        showErr(msg);
+        btn.textContent='🎤';btn.classList.remove('rec');recog=null;
+      };
+
+      recog.onend=function(){
+        btn.textContent='🎤';btn.classList.remove('rec');recog=null;
+      };
+
+      recog.start();
+
+    } catch(err){
+      showErr('Could not start microphone: '+err.message);
+      btn.textContent='🎤';btn.classList.remove('rec');recog=null;
+    }
+  })
+  .catch(function(err){
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(isIOS){
+      showErr('Microphone blocked on iPhone. Go to: Settings app → Safari → Microphone → Allow');
+    } else {
+      showErr('Microphone access denied. Please allow microphone in browser settings and try again.');
+    }
+  });
 });
 
 document.getElementById('inp').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();doTranslate();}});
@@ -693,6 +858,32 @@ function showPanel(name){
   document.getElementById('nav-'+name).classList.add('active');
   document.querySelector('.content').scrollTop=0;
 }
+
+// Profile page install button
+document.getElementById('install-btn-profile').addEventListener('click',function(){
+  if(deferredPrompt){
+    // Android Chrome — show native prompt
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function(result){
+      deferredPrompt=null;
+      if(result.outcome==='accepted') setStatus('App installed! Check your home screen.');
+    });
+  } else {
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    var isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;
+    if(isStandalone){
+      alert('App is already installed on your home screen!');
+    } else if(isIOS){
+      document.getElementById('ios-hint').classList.add('show');
+      showPanel('translate');
+      window.scrollTo(0,0);
+    } else {
+      document.getElementById('android-hint').classList.add('show');
+      showPanel('translate');
+      window.scrollTo(0,0);
+    }
+  }
+});
 
 document.getElementById('shareBtn').addEventListener('click',function(){
   if(navigator.share){navigator.share({title:'मराठी शिका — Learn Marathi',text:'Free app to learn Marathi by @mainormerimumbai!',url:window.location.href});}
