@@ -243,6 +243,16 @@ input:checked + .slider::before { transform: translateX(19px); }
   box-shadow: 0 4px 20px rgba(225,48,108,.25);
 }
 .btn-go:disabled { opacity: .5; cursor: not-allowed; }
+.btn-clear {
+  background: var(--input-bg);
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  flex: 0 0 auto; width: 52px;
+  padding: 13px 0;
+  border-radius: 12px;
+  font-size: 18px;
+}
+.btn-clear:active { background: rgba(255,80,80,.15); color:#ff6b6b; }
 
 /* Status */
 .t-status { min-height: 20px; padding: 0 14px 10px; }
@@ -490,6 +500,7 @@ nav {
       <div class="btn-row">
         <button class="btn btn-mic" id="micbtn">🎤</button>
         <button class="btn btn-go" id="gobtn">Translate to Marathi →</button>
+        <button class="btn btn-clear" id="clearbtn" title="Clear all">🗑️</button>
       </div>
       <div class="t-status"><div class="st" id="status"></div><div class="er" id="err"></div></div>
     </div>
@@ -883,6 +894,15 @@ document.getElementById('install-btn-profile').addEventListener('click',function
       window.scrollTo(0,0);
     }
   }
+});
+
+// Clear button
+document.getElementById('clearbtn').addEventListener('click',function(){
+  document.getElementById('inp').value = '';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('err').style.display = 'none';
+  document.getElementById('status').textContent = '';
+  document.getElementById('inp').focus();
 });
 
 document.getElementById('shareBtn').addEventListener('click',function(){
