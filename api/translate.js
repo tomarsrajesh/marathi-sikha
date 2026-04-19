@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Allow requests from your website only
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -7,36 +6,36 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  
+  if (!apiKey) {
+    return res.status(500).json({ error: 'API key not configured on server' });
+  }
+
   const { text } = req.body;
-  if (!text || text.trim().length === 0) {
-    return res.status(400).json({ error: 'No text provided' });
-  }
-  if (text.length > 500) {
-    return res.status(400).json({ error: 'Text too long (max 500 characters)' });
-  }
+  if (!text) return res.status(400).json({ error: 'No text provided' });
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY, // hidden safely on server
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
-        system: `You are a Marathi language translator and teacher. 
-The user writes in English, Hindi, or Hinglish (mix of Hindi+English). 
-Translate their message to correct Marathi.
-Reply ONLY with raw JSON, no markdown, no explanation:
-{"marathi":"correct Marathi sentence in Devanagari script","roman":"pronunciation in simple Roman/English letters","tip":"one short helpful usage tip in English"}`,
-        messages: [{ role: 'user', content: text.trim() }]
+        system: 'Translate English/Hindi/Hinglish to Marathi. Reply ONLY with raw JSON, no markdown: {"marathi":"Devanagari sentence","roman":"pronunciation in Roman letters","tip":"one short usage tip"}',
+        messages: [{ role: 'user', content: text }]
       })
     });
 
     const data = await response.json();
-    if (data.error) return res.status(500).json({ error: data.error.message });
+    
+    if (data.error) {
+      return res.status(500).json({ error: data.error.message });
+    }
 
     const raw = data.content?.[0]?.text?.trim() || '';
     let obj;
@@ -46,10 +45,10 @@ Reply ONLY with raw JSON, no markdown, no explanation:
       obj = m ? JSON.parse(m[0]) : null;
     }
 
-    if (!obj || !obj.marathi) return res.status(500).json({ error: 'Translation failed. Please try again.' });
-
+    if (!obj?.marathi) return res.status(500).json({ error: 'Translation failed' });
     return res.status(200).json(obj);
+
   } catch (err) {
-    return res.status(500).json({ error: 'Server error: ' + err.message });
+    return res.status(500).json({ error: err.message });
   }
 }
