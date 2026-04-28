@@ -489,18 +489,18 @@ nav {
 
     <!-- Stories -->
     <div class="stories">
-      <div class="story" onclick="loadStory('greet')"><div class="story-ring"><div class="story-inner">👋</div></div><span>Greetings</span></div>
-      <div class="story" onclick="loadStory('food')"><div class="story-ring"><div class="story-inner">🍽️</div></div><span>Food</span></div>
-      <div class="story" onclick="loadStory('travel')"><div class="story-ring yt"><div class="story-inner">🚌</div></div><span>Travel</span></div>
-      <div class="story" onclick="loadStory('shop')"><div class="story-ring fb"><div class="story-inner">🛒</div></div><span>Shopping</span></div>
-      <div class="story" onclick="loadStory('intro')"><div class="story-ring"><div class="story-inner">🙋</div></div><span>Intro</span></div>
-      <div class="story" onclick="loadStory('daily')"><div class="story-ring yt"><div class="story-inner">☀️</div></div><span>Daily</span></div>
-      <div class="story" onclick="loadStory('help')"><div class="story-ring fb"><div class="story-inner">🆘</div></div><span>Help</span></div>
-      <div class="story" onclick="loadStory('numbers')"><div class="story-ring"><div class="story-inner">🔢</div></div><span>Numbers</span></div>
-      <div class="story" onclick="loadStory('time')"><div class="story-ring yt"><div class="story-inner">🕐</div></div><span>Time</span></div>
-      <div class="story" onclick="loadStory('family')"><div class="story-ring fb"><div class="story-inner">👨‍👩‍👧</div></div><span>Family</span></div>
-      <div class="story" onclick="loadStory('health')"><div class="story-ring"><div class="story-inner">💊</div></div><span>Health</span></div>
-      <div class="story" onclick="loadStory('emotions')"><div class="story-ring yt"><div class="story-inner">❤️</div></div><span>Emotions</span></div>
+      <div class="story" data-story="greet"><div class="story-ring"><div class="story-inner">👋</div></div><span>Greetings</span></div>
+      <div class="story" data-story="food"><div class="story-ring"><div class="story-inner">🍽️</div></div><span>Food</span></div>
+      <div class="story" data-story="travel"><div class="story-ring yt"><div class="story-inner">🚌</div></div><span>Travel</span></div>
+      <div class="story" data-story="shop"><div class="story-ring fb"><div class="story-inner">🛒</div></div><span>Shopping</span></div>
+      <div class="story" data-story="intro"><div class="story-ring"><div class="story-inner">🙋</div></div><span>Intro</span></div>
+      <div class="story" data-story="daily"><div class="story-ring yt"><div class="story-inner">☀️</div></div><span>Daily</span></div>
+      <div class="story" data-story="help"><div class="story-ring fb"><div class="story-inner">🆘</div></div><span>Help</span></div>
+      <div class="story" data-story="numbers"><div class="story-ring"><div class="story-inner">🔢</div></div><span>Numbers</span></div>
+      <div class="story" data-story="time"><div class="story-ring yt"><div class="story-inner">🕐</div></div><span>Time</span></div>
+      <div class="story" data-story="family"><div class="story-ring fb"><div class="story-inner">👨‍👩‍👧</div></div><span>Family</span></div>
+      <div class="story" data-story="health"><div class="story-ring"><div class="story-inner">💊</div></div><span>Health</span></div>
+      <div class="story" data-story="emotions"><div class="story-ring yt"><div class="story-inner">❤️</div></div><span>Emotions</span></div>
     </div>
 
     <!-- Translator Card -->
@@ -637,17 +637,17 @@ nav {
       <input type="text" id="vocab-search" placeholder="Search words... (e.g. water, hello)" style="width:100%;padding:11px 13px;background:var(--input-bg);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:15px;outline:none;font-family:inherit;">
     </div>
     <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none;">
-      <button class="vcat-btn active" onclick="filterVocab('all')" id="vcat-all">All</button>
-      <button class="vcat-btn" onclick="filterVocab('numbers')" id="vcat-numbers">🔢 Numbers</button>
-      <button class="vcat-btn" onclick="filterVocab('greetings')" id="vcat-greetings">👋 Greetings</button>
-      <button class="vcat-btn" onclick="filterVocab('food')" id="vcat-food">🍽️ Food</button>
-      <button class="vcat-btn" onclick="filterVocab('colors')" id="vcat-colors">🎨 Colors</button>
-      <button class="vcat-btn" onclick="filterVocab('family')" id="vcat-family">👨‍👩‍👧 Family</button>
-      <button class="vcat-btn" onclick="filterVocab('body')" id="vcat-body">🧍 Body</button>
-      <button class="vcat-btn" onclick="filterVocab('time')" id="vcat-time">🕐 Time</button>
-      <button class="vcat-btn" onclick="filterVocab('places')" id="vcat-places">📍 Places</button>
-      <button class="vcat-btn" onclick="filterVocab('verbs')" id="vcat-verbs">⚡ Verbs</button>
-      <button class="vcat-btn" onclick="filterVocab('nature')" id="vcat-nature">🌿 Nature</button>
+      <button class="vcat-btn active" data-vcat="all" id="vcat-all">All</button>
+      <button class="vcat-btn" data-vcat="numbers" id="vcat-numbers">🔢 Numbers</button>
+      <button class="vcat-btn" data-vcat="greetings" id="vcat-greetings">👋 Greetings</button>
+      <button class="vcat-btn" data-vcat="food" id="vcat-food">🍽️ Food</button>
+      <button class="vcat-btn" data-vcat="colors" id="vcat-colors">🎨 Colors</button>
+      <button class="vcat-btn" data-vcat="family" id="vcat-family">👨‍👩‍👧 Family</button>
+      <button class="vcat-btn" data-vcat="body" id="vcat-body">🧍 Body</button>
+      <button class="vcat-btn" data-vcat="time" id="vcat-time">🕐 Time</button>
+      <button class="vcat-btn" data-vcat="places" id="vcat-places">📍 Places</button>
+      <button class="vcat-btn" data-vcat="verbs" id="vcat-verbs">⚡ Verbs</button>
+      <button class="vcat-btn" data-vcat="nature" id="vcat-nature">🌿 Nature</button>
     </div>
   </div>
   <div id="vocab-list" style="padding:0 12px 12px;display:flex;flex-direction:column;gap:8px;"></div>
@@ -655,13 +655,13 @@ nav {
 
 <!-- Bottom Nav -->
 <nav>
-  <button class="nav-btn active" id="nav-translate" onclick="showPanel('translate')">
+  <button class="nav-btn active" id="nav-translate" data-panel="translate">
     <span class="ni">🏠</span><span>Home</span>
   </button>
-  <button class="nav-btn" id="nav-vocab" onclick="showPanel('vocab')">
+  <button class="nav-btn" id="nav-vocab" data-panel="vocab">
     <span class="ni">📖</span><span>Vocabulary</span>
   </button>
-  <button class="nav-btn" id="nav-about" onclick="showPanel('about')">
+  <button class="nav-btn" id="nav-about" data-panel="about">
     <span class="ni">👤</span><span>Profile</span>
   </button>
 </nav>
@@ -1121,30 +1121,68 @@ function renderVocab() {
   var filtered = VOCAB.filter(function(w){
     var matchCat = currentVocabCat==='all' || w.c===currentVocabCat;
     var q = currentVocabSearch.toLowerCase();
-    var matchSearch = !q || w.e.toLowerCase().includes(q) || w.m.includes(q) || w.r.toLowerCase().includes(q);
+    var matchSearch = !q || w.e.toLowerCase().indexOf(q)>-1 || w.m.indexOf(q)>-1 || w.r.toLowerCase().indexOf(q)>-1;
     return matchCat && matchSearch;
   });
+  list.innerHTML = '';
   if(filtered.length===0){
-    list.innerHTML='<div style="text-align:center;padding:30px;color:var(--text3);font-size:14px;">No words found. Try a different search.</div>';
+    var msg = document.createElement('div');
+    msg.style.cssText = 'text-align:center;padding:30px;color:var(--text3);font-size:14px;';
+    msg.textContent = 'No words found. Try a different search.';
+    list.appendChild(msg);
     return;
   }
-  list.innerHTML='';
   filtered.forEach(function(w){
+    // Card container
     var card = document.createElement('div');
-    card.className='vocab-card';
-    card.innerHTML=
-      '<div class="vocab-marathi">'+w.m+'</div>'+
-      '<div class="vocab-right">'+
-        '<div class="vocab-english">'+w.e+'</div>'+
-        '<div class="vocab-roman">'+w.r+'</div>'+
-        '<span class="vocab-cat">'+catLabel(w.c)+'</span>'+
-      '</div>'+
-      '<button class="vocab-speak" onclick="event.stopPropagation();speakWord(''+w.m.replace(/'/g,"\'")+'')" title="Hear pronunciation">🔊</button>';
+    card.className = 'vocab-card';
+
+    // Marathi text
+    var mDiv = document.createElement('div');
+    mDiv.className = 'vocab-marathi';
+    mDiv.textContent = w.m;
+
+    // Right side info
+    var rDiv = document.createElement('div');
+    rDiv.className = 'vocab-right';
+
+    var engDiv = document.createElement('div');
+    engDiv.className = 'vocab-english';
+    engDiv.textContent = w.e;
+
+    var romDiv = document.createElement('div');
+    romDiv.className = 'vocab-roman';
+    romDiv.textContent = w.r;
+
+    var catSpan = document.createElement('span');
+    catSpan.className = 'vocab-cat';
+    catSpan.textContent = catLabel(w.c);
+
+    rDiv.appendChild(engDiv);
+    rDiv.appendChild(romDiv);
+    rDiv.appendChild(catSpan);
+
+    // Speak button — NO onclick, use addEventListener
+    var speakBtn = document.createElement('button');
+    speakBtn.className = 'vocab-speak';
+    speakBtn.title = 'Hear pronunciation';
+    speakBtn.textContent = '🔊';
+    speakBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      speakWord(w.m);
+    });
+
+    card.appendChild(mDiv);
+    card.appendChild(rDiv);
+    card.appendChild(speakBtn);
+
+    // Tap card → translate that word
     card.addEventListener('click', function(){
       document.getElementById('inp').value = w.e;
       showPanel('translate');
       doTranslate();
     });
+
     list.appendChild(card);
   });
 }
@@ -1159,6 +1197,29 @@ function filterVocab(cat) {
 
 // Use window.onload — works for both local files and hosted server
 window.addEventListener('load', function(){
+
+  // Wire story circles via data-story attribute
+  document.querySelectorAll('[data-story]').forEach(function(el){
+    el.addEventListener('click', function(){
+      loadStory(this.getAttribute('data-story'));
+    });
+  });
+
+  // Wire vocab category buttons via data-vcat attribute
+  document.querySelectorAll('[data-vcat]').forEach(function(el){
+    el.addEventListener('click', function(){
+      filterVocab(this.getAttribute('data-vcat'));
+    });
+  });
+
+  // Wire nav buttons via data-panel attribute
+  document.querySelectorAll('[data-panel]').forEach(function(el){
+    el.addEventListener('click', function(){
+      showPanel(this.getAttribute('data-panel'));
+    });
+  });
+
+  // Vocab search
   var vsearch = document.getElementById('vocab-search');
   if(vsearch){
     vsearch.addEventListener('input', function(){
