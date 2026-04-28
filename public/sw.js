@@ -1,4 +1,4 @@
-const CACHE = 'marathi-sikha-v1';
+const CACHE = 'marathi-sikha-v3';
 const ASSETS = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -14,8 +14,9 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  if (e.request.url.includes('/api/')) return; // never cache API calls
+  if (e.request.url.includes('/api/')) return;
+  // Always fetch fresh from network, fallback to cache
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
+    fetch(e.request).catch(() => caches.match(e.request))
   );
 });
