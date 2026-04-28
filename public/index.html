@@ -855,7 +855,12 @@ window.addEventListener('appinstalled',function(){
   document.getElementById('android-hint').classList.remove('show');
   setStatus('✅ App installed on your home screen!');
 });
-if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js?v=3').catch(function(){}); // v3 - cache busted
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js?v=4').then(function(reg){
+    // Force update check immediately
+    reg.update();
+  }).catch(function(){});
+}
 
 function setStatus(m){document.getElementById('status').textContent=m;}
 function showErr(m){
