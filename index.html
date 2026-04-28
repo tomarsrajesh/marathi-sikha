@@ -404,6 +404,29 @@ nav {
 .nav-btn .ni { font-size:22px; line-height:1; }
 .nav-btn.active { color:var(--text); }
 .nav-btn.active .ni { filter: drop-shadow(0 0 5px var(--ig-pink)); }
+
+/* ── VOCABULARY ── */
+.vcat-btn {
+  padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border2);
+  background: var(--card); color: var(--text2); font-size: 12px; font-weight: 600;
+  cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all .15s;
+}
+.vcat-btn.active { background: var(--ig-pink); border-color: var(--ig-pink); color: #fff; }
+.vcat-btn:active { transform: scale(.93); }
+.vocab-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer; transition: all .15s;
+}
+.vocab-card:active { background: var(--card2); transform: scale(.98); }
+.vocab-marathi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; min-width: 80px; }
+.vocab-right { flex: 1; min-width: 0; }
+.vocab-english { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 2px; }
+.vocab-roman { font-size: 12px; color: var(--text3); }
+.vocab-cat { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: var(--input-bg); color: var(--text3); white-space: nowrap; display: inline-block; margin-top: 3px; }
+.vocab-speak { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border2); background: var(--input-bg); color: var(--text2); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .15s; }
+.vocab-speak:active { background: var(--ig-pink); color: #fff; border-color: var(--ig-pink); }
 </style>
 </head>
 <body>
@@ -472,6 +495,11 @@ nav {
       <div class="story" onclick="loadStory('intro')"><div class="story-ring"><div class="story-inner">🙋</div></div><span>Intro</span></div>
       <div class="story" onclick="loadStory('daily')"><div class="story-ring yt"><div class="story-inner">☀️</div></div><span>Daily</span></div>
       <div class="story" onclick="loadStory('help')"><div class="story-ring fb"><div class="story-inner">🆘</div></div><span>Help</span></div>
+      <div class="story" onclick="loadStory('numbers')"><div class="story-ring"><div class="story-inner">🔢</div></div><span>Numbers</span></div>
+      <div class="story" onclick="loadStory('time')"><div class="story-ring yt"><div class="story-inner">🕐</div></div><span>Time</span></div>
+      <div class="story" onclick="loadStory('family')"><div class="story-ring fb"><div class="story-inner">👨‍👩‍👧</div></div><span>Family</span></div>
+      <div class="story" onclick="loadStory('health')"><div class="story-ring"><div class="story-inner">💊</div></div><span>Health</span></div>
+      <div class="story" onclick="loadStory('emotions')"><div class="story-ring yt"><div class="story-inner">❤️</div></div><span>Emotions</span></div>
     </div>
 
     <!-- Translator Card -->
@@ -600,10 +628,37 @@ nav {
 
 </div><!-- content -->
 
+<!-- Vocabulary Panel -->
+<div class="panel" id="panel-vocab">
+  <div style="padding:12px 12px 0">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">📖 Marathi Vocabulary</div>
+      <input type="text" id="vocab-search" placeholder="Search words... (e.g. water, hello)" style="width:100%;padding:11px 13px;background:var(--input-bg);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:15px;outline:none;font-family:inherit;">
+    </div>
+    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none;">
+      <button class="vcat-btn active" onclick="filterVocab('all')" id="vcat-all">All</button>
+      <button class="vcat-btn" onclick="filterVocab('numbers')" id="vcat-numbers">🔢 Numbers</button>
+      <button class="vcat-btn" onclick="filterVocab('greetings')" id="vcat-greetings">👋 Greetings</button>
+      <button class="vcat-btn" onclick="filterVocab('food')" id="vcat-food">🍽️ Food</button>
+      <button class="vcat-btn" onclick="filterVocab('colors')" id="vcat-colors">🎨 Colors</button>
+      <button class="vcat-btn" onclick="filterVocab('family')" id="vcat-family">👨‍👩‍👧 Family</button>
+      <button class="vcat-btn" onclick="filterVocab('body')" id="vcat-body">🧍 Body</button>
+      <button class="vcat-btn" onclick="filterVocab('time')" id="vcat-time">🕐 Time</button>
+      <button class="vcat-btn" onclick="filterVocab('places')" id="vcat-places">📍 Places</button>
+      <button class="vcat-btn" onclick="filterVocab('verbs')" id="vcat-verbs">⚡ Verbs</button>
+      <button class="vcat-btn" onclick="filterVocab('nature')" id="vcat-nature">🌿 Nature</button>
+    </div>
+  </div>
+  <div id="vocab-list" style="padding:0 12px 12px;display:flex;flex-direction:column;gap:8px;"></div>
+</div>
+
 <!-- Bottom Nav -->
 <nav>
   <button class="nav-btn active" id="nav-translate" onclick="showPanel('translate')">
     <span class="ni">🏠</span><span>Home</span>
+  </button>
+  <button class="nav-btn" id="nav-vocab" onclick="showPanel('vocab')">
+    <span class="ni">📖</span><span>Vocabulary</span>
   </button>
   <button class="nav-btn" id="nav-about" onclick="showPanel('about')">
     <span class="ni">👤</span><span>Profile</span>
@@ -639,14 +694,108 @@ var DEMOS={
 };
 
 var STORIES={
-  greet:["Good morning","Good night","Hello, how are you?","Thank you very much"],
-  food: ["I am hungry","mujhe paani chahiye","Where is the bathroom?"],
-  travel:["Where is the bus stop?","How to go to station?","Where is the bathroom?"],
-  shop: ["How much does this cost?","I want to buy this","Give me discount"],
-  intro:["My name is Rahul","I am from Mumbai","mujhe marathi seekhna hai","What is your name?"],
-  daily:["Good morning","Good night","main thak gaya hoon","I don't understand","Please speak slowly"],
-  help: ["Call the police","I need a doctor","I don't understand","Please speak slowly"],
+  greet:["Hello, how are you?","Good morning","Good night","Thank you very much","Welcome","See you later","How are you doing?","Nice to meet you","Goodbye","You are welcome","Sorry","Excuse me"],
+  food: ["I am hungry","I am thirsty","mujhe paani chahiye","Where is a restaurant?","The food is delicious","I want to eat rice","Give me tea please","I want coffee","The food is spicy","I am full","This is sweet","I don't eat meat"],
+  travel:["Where is the bus stop?","How to go to station?","Where is the airport?","How much is the taxi?","Stop here please","Turn left","Turn right","Go straight","Is this the right way?","How far is it?","I am lost","Call a taxi please"],
+  shop: ["How much does this cost?","I want to buy this","Give me discount","This is too expensive","Do you have another color?","I want a smaller size","I want a bigger size","Can I try this?","I will take this","Do you accept card?","Give me a bag","Where is the bill?"],
+  intro:["My name is Rahul","I am from Mumbai","mujhe marathi seekhna hai","What is your name?","I am learning Marathi","I live in Mumbai","I work in IT","I am a student","Nice to meet you","Where are you from?","How old are you?","I speak Hindi"],
+  daily:["Good morning","Good night","main thak gaya hoon","I don't understand","Please speak slowly","Please repeat that","Can you help me?","I am busy","Let's go","Come here","Wait a moment","I am coming"],
+  help: ["Call the police","I need a doctor","I am not well","I need help","Call an ambulance","Where is the hospital?","I have a fever","I lost my phone","I lost my wallet","Please help me","It is an emergency","I am scared"],
+  numbers:["One — एक","Two — दोन","Three — तीन","Four — चार","Five — पाच","Six — सहा","Seven — सात","Eight — आठ","Nine — नऊ","Ten — दहा","Twenty — वीस","Fifty — पन्नास","Hundred — शंभर","Thousand — हजार"],
+  time:["What is the time?","It is morning","It is evening","It is night","Today","Tomorrow","Yesterday","Monday","Sunday","This week","Next month","What day is today?"],
+  family:["Mother","Father","Brother","Sister","My wife","My husband","My son","My daughter","Grandfather","Grandmother","My family","My friend"],
+  health:["I have a fever","I have a headache","I have stomach pain","I need medicine","Where is the pharmacy?","I am not feeling well","I am allergic","I need a doctor","My leg is hurting","I cannot sleep","I have a cold","I am feeling better"],
+  emotions:["I am happy","I am sad","I am angry","I am scared","I love you","I am excited","I am bored","I am surprised","I am tired","I am proud","I am grateful","I miss you"],
 };
+
+// ── VOCABULARY DATA ──
+var VOCAB = [
+  // Numbers
+  {e:"One",m:"एक",r:"Ek",c:"numbers"},{e:"Two",m:"दोन",r:"Don",c:"numbers"},
+  {e:"Three",m:"तीन",r:"Teen",c:"numbers"},{e:"Four",m:"चार",r:"Chaar",c:"numbers"},
+  {e:"Five",m:"पाच",r:"Paach",c:"numbers"},{e:"Six",m:"सहा",r:"Sahaa",c:"numbers"},
+  {e:"Seven",m:"सात",r:"Saat",c:"numbers"},{e:"Eight",m:"आठ",r:"Aath",c:"numbers"},
+  {e:"Nine",m:"नऊ",r:"Nau",c:"numbers"},{e:"Ten",m:"दहा",r:"Dahaa",c:"numbers"},
+  {e:"Eleven",m:"अकरा",r:"Akaraa",c:"numbers"},{e:"Twelve",m:"बारा",r:"Baaraa",c:"numbers"},
+  {e:"Thirteen",m:"तेरा",r:"Teraa",c:"numbers"},{e:"Fourteen",m:"चौदा",r:"Chaudaa",c:"numbers"},
+  {e:"Fifteen",m:"पंधरा",r:"Pandharaa",c:"numbers"},{e:"Sixteen",m:"सोळा",r:"Solaa",c:"numbers"},
+  {e:"Seventeen",m:"सतरा",r:"Sataraa",c:"numbers"},{e:"Eighteen",m:"अठरा",r:"Atharaa",c:"numbers"},
+  {e:"Nineteen",m:"एकोणवीस",r:"Ekonavis",c:"numbers"},{e:"Twenty",m:"वीस",r:"Vees",c:"numbers"},
+  {e:"Thirty",m:"तीस",r:"Tees",c:"numbers"},{e:"Forty",m:"चाळीस",r:"Chaalis",c:"numbers"},
+  {e:"Fifty",m:"पन्नास",r:"Pannaas",c:"numbers"},{e:"Sixty",m:"साठ",r:"Saath",c:"numbers"},
+  {e:"Seventy",m:"सत्तर",r:"Sattar",c:"numbers"},{e:"Eighty",m:"ऐंशी",r:"Aishi",c:"numbers"},
+  {e:"Ninety",m:"नव्वद",r:"Navvad",c:"numbers"},{e:"Hundred",m:"शंभर",r:"Shambhar",c:"numbers"},
+  {e:"Thousand",m:"हजार",r:"Hazaar",c:"numbers"},{e:"Zero",m:"शून्य",r:"Shunya",c:"numbers"},
+  // Greetings
+  {e:"Hello",m:"नमस्कार",r:"Namaskaar",c:"greetings"},{e:"Good morning",m:"शुभ प्रभात",r:"Shubh Prabhaat",c:"greetings"},
+  {e:"Good night",m:"शुभ रात्री",r:"Shubh Raatri",c:"greetings"},{e:"Thank you",m:"धन्यवाद",r:"Dhanyavaad",c:"greetings"},
+  {e:"Welcome",m:"स्वागत आहे",r:"Swaagat Aahe",c:"greetings"},{e:"Goodbye",m:"निरोप",r:"Nirop",c:"greetings"},
+  {e:"Sorry",m:"माफ करा",r:"Maaf Karaa",c:"greetings"},{e:"Yes",m:"हो",r:"Ho",c:"greetings"},
+  {e:"No",m:"नाही",r:"Naahi",c:"greetings"},{e:"Please",m:"कृपया",r:"Krupayaa",c:"greetings"},
+  {e:"Excuse me",m:"माफ करा",r:"Maaf Karaa",c:"greetings"},{e:"You are welcome",m:"काही नाही",r:"Kaahi Naahi",c:"greetings"},
+  // Food
+  {e:"Water",m:"पाणी",r:"Paani",c:"food"},{e:"Food / Meal",m:"जेवण",r:"Jevan",c:"food"},
+  {e:"Rice",m:"भात",r:"Bhaat",c:"food"},{e:"Bread (Roti)",m:"पोळी",r:"Poli",c:"food"},
+  {e:"Vegetables",m:"भाजी",r:"Bhaaji",c:"food"},{e:"Milk",m:"दूध",r:"Doodh",c:"food"},
+  {e:"Tea",m:"चहा",r:"Chahaa",c:"food"},{e:"Coffee",m:"कॉफी",r:"Coffee",c:"food"},
+  {e:"Sugar",m:"साखर",r:"Saakhar",c:"food"},{e:"Salt",m:"मीठ",r:"Meeth",c:"food"},
+  {e:"Spicy",m:"तिखट",r:"Tikhat",c:"food"},{e:"Sweet",m:"गोड",r:"God",c:"food"},
+  {e:"Hungry",m:"भूक",r:"Bhook",c:"food"},{e:"Thirsty",m:"तहान",r:"Tahaan",c:"food"},
+  {e:"Delicious",m:"स्वादिष्ट",r:"Swaadisht",c:"food"},{e:"Fruit",m:"फळ",r:"Phal",c:"food"},
+  // Colors
+  {e:"Red",m:"लाल",r:"Laal",c:"colors"},{e:"Blue",m:"निळा",r:"Nilaa",c:"colors"},
+  {e:"Green",m:"हिरवा",r:"Hirvaa",c:"colors"},{e:"Yellow",m:"पिवळा",r:"Pivlaa",c:"colors"},
+  {e:"White",m:"पांढरा",r:"Paandharaa",c:"colors"},{e:"Black",m:"काळा",r:"Kaalaa",c:"colors"},
+  {e:"Orange",m:"नारंगी",r:"Naarangi",c:"colors"},{e:"Pink",m:"गुलाबी",r:"Gulaabi",c:"colors"},
+  {e:"Purple",m:"जांभळा",r:"Jaambhalaa",c:"colors"},{e:"Brown",m:"तपकिरी",r:"Tapkiri",c:"colors"},
+  // Family
+  {e:"Mother",m:"आई",r:"Aai",c:"family"},{e:"Father",m:"बाबा / वडील",r:"Baabaa / Vadil",c:"family"},
+  {e:"Brother",m:"भाऊ",r:"Bhaau",c:"family"},{e:"Sister",m:"बहीण",r:"Baheen",c:"family"},
+  {e:"Son",m:"मुलगा",r:"Mulgaa",c:"family"},{e:"Daughter",m:"मुलगी",r:"Mulgi",c:"family"},
+  {e:"Husband",m:"नवरा",r:"Navraa",c:"family"},{e:"Wife",m:"बायको",r:"Baayko",c:"family"},
+  {e:"Grandfather",m:"आजोबा",r:"Aajoobaa",c:"family"},{e:"Grandmother",m:"आजी",r:"Aaji",c:"family"},
+  {e:"Friend",m:"मित्र / मैत्रीण",r:"Mitra / Maitrin",c:"family"},{e:"Child",m:"मूल",r:"Mool",c:"family"},
+  // Body
+  {e:"Head",m:"डोके",r:"Doke",c:"body"},{e:"Eye",m:"डोळा",r:"Dolaa",c:"body"},
+  {e:"Ear",m:"कान",r:"Kaan",c:"body"},{e:"Nose",m:"नाक",r:"Naak",c:"body"},
+  {e:"Mouth",m:"तोंड",r:"Tond",c:"body"},{e:"Hand",m:"हात",r:"Haat",c:"body"},
+  {e:"Leg / Foot",m:"पाय",r:"Paay",c:"body"},{e:"Heart",m:"हृदय",r:"Hruday",c:"body"},
+  {e:"Stomach",m:"पोट",r:"Pot",c:"body"},{e:"Back",m:"पाठ",r:"Paath",c:"body"},
+  // Time
+  {e:"Today",m:"आज",r:"Aaj",c:"time"},{e:"Tomorrow",m:"उद्या",r:"Udyaa",c:"time"},
+  {e:"Yesterday",m:"काल",r:"Kaal",c:"time"},{e:"Morning",m:"सकाळ",r:"Sakaal",c:"time"},
+  {e:"Afternoon",m:"दुपार",r:"Dupaar",c:"time"},{e:"Evening",m:"संध्याकाळ",r:"Sandhyakaal",c:"time"},
+  {e:"Night",m:"रात्र",r:"Raatr",c:"time"},{e:"Monday",m:"सोमवार",r:"Somvaar",c:"time"},
+  {e:"Tuesday",m:"मंगळवार",r:"Mangalvaar",c:"time"},{e:"Wednesday",m:"बुधवार",r:"Budhvaar",c:"time"},
+  {e:"Thursday",m:"गुरुवार",r:"Guruvaar",c:"time"},{e:"Friday",m:"शुक्रवार",r:"Shukvaar",c:"time"},
+  {e:"Saturday",m:"शनिवार",r:"Shanivaar",c:"time"},{e:"Sunday",m:"रविवार",r:"Ravivaar",c:"time"},
+  {e:"Week",m:"आठवडा",r:"Aathavdaa",c:"time"},{e:"Month",m:"महिना",r:"Mahinaa",c:"time"},
+  {e:"Year",m:"वर्ष",r:"Varsh",c:"time"},{e:"Hour",m:"तास",r:"Taas",c:"time"},
+  {e:"Minute",m:"मिनिट",r:"Minute",c:"time"},{e:"Now",m:"आत्ता",r:"Aattaa",c:"time"},
+  // Places
+  {e:"House / Home",m:"घर",r:"Ghar",c:"places"},{e:"School",m:"शाळा",r:"Shaalaa",c:"places"},
+  {e:"Hospital",m:"रुग्णालय",r:"Rugnalay",c:"places"},{e:"Market",m:"बाजार",r:"Baajaar",c:"places"},
+  {e:"Station",m:"स्टेशन",r:"Station",c:"places"},{e:"Temple",m:"मंदिर",r:"Mandir",c:"places"},
+  {e:"Office",m:"कार्यालय",r:"Kaaryaalay",c:"places"},{e:"Road",m:"रस्ता",r:"Rastaa",c:"places"},
+  {e:"Village",m:"गाव",r:"Gaav",c:"places"},{e:"City",m:"शहर",r:"Shahar",c:"places"},
+  {e:"Mumbai",m:"मुंबई",r:"Mumbai",c:"places"},{e:"Pune",m:"पुणे",r:"Pune",c:"places"},
+  // Verbs
+  {e:"To eat",m:"खाणे",r:"Khane",c:"verbs"},{e:"To drink",m:"पिणे",r:"Pine",c:"verbs"},
+  {e:"To go",m:"जाणे",r:"Jaane",c:"verbs"},{e:"To come",m:"येणे",r:"Yene",c:"verbs"},
+  {e:"To speak",m:"बोलणे",r:"Bolne",c:"verbs"},{e:"To listen",m:"ऐकणे",r:"Aikne",c:"verbs"},
+  {e:"To see",m:"पाहणे",r:"Paahne",c:"verbs"},{e:"To buy",m:"विकत घेणे",r:"Vikat Ghene",c:"verbs"},
+  {e:"To give",m:"देणे",r:"Dene",c:"verbs"},{e:"To take",m:"घेणे",r:"Ghene",c:"verbs"},
+  {e:"To sleep",m:"झोपणे",r:"Jhopne",c:"verbs"},{e:"To run",m:"धावणे",r:"Dhaavne",c:"verbs"},
+  {e:"To sit",m:"बसणे",r:"Basne",c:"verbs"},{e:"To stand",m:"उभे राहणे",r:"Ubhe Raahne",c:"verbs"},
+  {e:"To laugh",m:"हसणे",r:"Hasne",c:"verbs"},{e:"To cry",m:"रडणे",r:"Radne",c:"verbs"},
+  // Nature
+  {e:"Sun",m:"सूर्य",r:"Soorya",c:"nature"},{e:"Moon",m:"चंद्र",r:"Chandr",c:"nature"},
+  {e:"Rain",m:"पाऊस",r:"Paaoos",c:"nature"},{e:"Wind",m:"वारा",r:"Vaaraa",c:"nature"},
+  {e:"Tree",m:"झाड",r:"Jhaad",c:"nature"},{e:"Flower",m:"फूल",r:"Phool",c:"nature"},
+  {e:"River",m:"नदी",r:"Nadi",c:"nature"},{e:"Mountain",m:"पर्वत",r:"Parvat",c:"nature"},
+  {e:"Sky",m:"आकाश",r:"Aakaash",c:"nature"},{e:"Water",m:"पाणी",r:"Paani",c:"nature"},
+  {e:"Fire",m:"आग",r:"Aag",c:"nature"},{e:"Earth",m:"पृथ्वी",r:"Pruthvi",c:"nature"},
+];
 
 var recog=null, deferredPrompt=null;
 
@@ -708,7 +857,13 @@ window.addEventListener('appinstalled',function(){
 if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
 
 function setStatus(m){document.getElementById('status').textContent=m;}
-function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style.display='block';document.getElementById('status').textContent='';}
+function showErr(m){
+  var e=document.getElementById('err');
+  e.textContent=m;
+  e.style.display='block';
+  document.getElementById('status').textContent='';
+  console.error('App Error:', m); // helps debug in browser console
+}
 function hideErr(){document.getElementById('err').style.display='none';}
 
 document.getElementById('autoToggle').addEventListener('change',function(){
@@ -744,6 +899,15 @@ function doTranslate(){
 }
 
 document.getElementById('gobtn').addEventListener('click',doTranslate);
+
+// Clear button — clears input, result, errors
+document.getElementById('clearbtn').addEventListener('click',function(){
+  document.getElementById('inp').value='';
+  document.getElementById('result').style.display='none';
+  document.getElementById('err').style.display='none';
+  document.getElementById('status').textContent='';
+  document.getElementById('inp').focus();
+});
 document.getElementById('speakbtn').addEventListener('click',function(){
   var t = document.getElementById('out-m').textContent;
   if(!t || !window.speechSynthesis) {
@@ -917,48 +1081,111 @@ document.getElementById('micbtn').addEventListener('click',function(){
 
 document.getElementById('inp').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();doTranslate();}});
 
+// ── VOCABULARY FUNCTIONS ──
+var currentVocabCat = 'all';
+var currentVocabSearch = '';
+
+function speakWord(marathi) {
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  var voices = window.speechSynthesis.getVoices();
+  var u = new SpeechSynthesisUtterance(marathi);
+  u.rate = 0.8;
+  var mr = voices.find(function(v){ return v.lang==='mr-IN'||v.lang==='mr'; });
+  var hi = voices.find(function(v){ return v.lang==='hi-IN'||v.lang.startsWith('hi'); });
+  if(mr) u.voice=mr;
+  else if(hi) u.voice=hi;
+  u.lang = (mr ? 'mr-IN' : 'hi-IN');
+  speechSynthesis.speak(u);
+}
+
+function catLabel(c) {
+  var labels={numbers:'🔢 Numbers',greetings:'👋 Greetings',food:'🍽️ Food',
+    colors:'🎨 Colors',family:'👨‍👩‍👧 Family',body:'🧍 Body',time:'🕐 Time',
+    places:'📍 Places',verbs:'⚡ Verbs',nature:'🌿 Nature'};
+  return labels[c]||c;
+}
+
+function renderVocab() {
+  var list = document.getElementById('vocab-list');
+  if(!list) return;
+  var filtered = VOCAB.filter(function(w){
+    var matchCat = currentVocabCat==='all' || w.c===currentVocabCat;
+    var q = currentVocabSearch.toLowerCase();
+    var matchSearch = !q || w.e.toLowerCase().includes(q) || w.m.includes(q) || w.r.toLowerCase().includes(q);
+    return matchCat && matchSearch;
+  });
+  if(filtered.length===0){
+    list.innerHTML='<div style="text-align:center;padding:30px;color:var(--text3);font-size:14px;">No words found. Try a different search.</div>';
+    return;
+  }
+  list.innerHTML='';
+  filtered.forEach(function(w){
+    var card = document.createElement('div');
+    card.className='vocab-card';
+    card.innerHTML=
+      '<div class="vocab-marathi">'+w.m+'</div>'+
+      '<div class="vocab-right">'+
+        '<div class="vocab-english">'+w.e+'</div>'+
+        '<div class="vocab-roman">'+w.r+'</div>'+
+        '<span class="vocab-cat">'+catLabel(w.c)+'</span>'+
+      '</div>'+
+      '<button class="vocab-speak" onclick="event.stopPropagation();speakWord(''+w.m.replace(/'/g,"\'")+'')" title="Hear pronunciation">🔊</button>';
+    card.addEventListener('click', function(){
+      document.getElementById('inp').value = w.e;
+      showPanel('translate');
+      doTranslate();
+    });
+    list.appendChild(card);
+  });
+}
+
+function filterVocab(cat) {
+  currentVocabCat = cat;
+  document.querySelectorAll('.vcat-btn').forEach(function(b){ b.classList.remove('active'); });
+  var btn = document.getElementById('vcat-'+cat);
+  if(btn) btn.classList.add('active');
+  renderVocab();
+}
+
+// Use window.onload — works for both local files and hosted server
+window.addEventListener('load', function(){
+  var vsearch = document.getElementById('vocab-search');
+  if(vsearch){
+    vsearch.addEventListener('input', function(){
+      currentVocabSearch = this.value;
+      renderVocab();
+    });
+  }
+  // Attach install-btn-profile here too so it's definitely ready
+  var ibp = document.getElementById('install-btn-profile');
+  if(ibp){
+    ibp.addEventListener('click', function(){
+      if(deferredPrompt){
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(result){
+          deferredPrompt=null;
+          if(result.outcome==='accepted') setStatus('App installed! Check your home screen.');
+        });
+      } else {
+        var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+        var isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;
+        if(isStandalone){ alert('App is already installed on your home screen!'); }
+        else if(isIOS){ document.getElementById('ios-hint').classList.add('show'); showPanel('translate'); window.scrollTo(0,0); }
+        else { document.getElementById('android-hint').classList.add('show'); showPanel('translate'); window.scrollTo(0,0); }
+      }
+    });
+  }
+});
+
 function showPanel(name){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-btn').forEach(function(n){n.classList.remove('active');});
   document.getElementById('panel-'+name).classList.add('active');
   document.getElementById('nav-'+name).classList.add('active');
   document.querySelector('.content').scrollTop=0;
+  if(name==='vocab') { renderVocab(); }
 }
-
-// Profile page install button
-document.getElementById('install-btn-profile').addEventListener('click',function(){
-  if(deferredPrompt){
-    // Android Chrome — show native prompt
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(function(result){
-      deferredPrompt=null;
-      if(result.outcome==='accepted') setStatus('App installed! Check your home screen.');
-    });
-  } else {
-    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
-    var isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;
-    if(isStandalone){
-      alert('App is already installed on your home screen!');
-    } else if(isIOS){
-      document.getElementById('ios-hint').classList.add('show');
-      showPanel('translate');
-      window.scrollTo(0,0);
-    } else {
-      document.getElementById('android-hint').classList.add('show');
-      showPanel('translate');
-      window.scrollTo(0,0);
-    }
-  }
-});
-
-// Clear button
-document.getElementById('clearbtn').addEventListener('click',function(){
-  document.getElementById('inp').value = '';
-  document.getElementById('result').style.display = 'none';
-  document.getElementById('err').style.display = 'none';
-  document.getElementById('status').textContent = '';
-  document.getElementById('inp').focus();
-});
 
 document.getElementById('shareBtn').addEventListener('click',function(){
   if(navigator.share){navigator.share({title:'मराठी शिका — Learn Marathi',text:'Free app to learn Marathi by @mainormerimumbai!',url:window.location.href});}
