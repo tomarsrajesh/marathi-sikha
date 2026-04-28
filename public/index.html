@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="मराठी शिका">
 <meta name="app-version" content="3.0">
-<link rel="manifest" href="/manifest.json">
+<!-- manifest removed to prevent caching issues -->
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <title>मराठी शिका — Learn Marathi</title>
@@ -855,11 +855,14 @@ window.addEventListener('appinstalled',function(){
   document.getElementById('android-hint').classList.remove('show');
   setStatus('✅ App installed on your home screen!');
 });
+// Unregister any old service worker and clear all caches
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js?v=4').then(function(reg){
-    // Force update check immediately
-    reg.update();
-  }).catch(function(){});
+  navigator.serviceWorker.getRegistrations().then(function(regs){
+    regs.forEach(function(r){ r.unregister(); });
+  });
+  caches.keys().then(function(keys){
+    keys.forEach(function(k){ caches.delete(k); });
+  });
 }
 
 function setStatus(m){document.getElementById('status').textContent=m;}
