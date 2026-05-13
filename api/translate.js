@@ -20,10 +20,10 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 600,
-        system: `You are a Marathi and Sanskrit language expert. Translate the user's input into BOTH Marathi and Sanskrit. The input may be in English, Hindi, Hinglish, or Hindi Devanagari script.
+        max_tokens: 800,
+        system: `You are a multilingual language expert. Translate the user's input into THREE languages: Marathi, Sanskrit, and French. The input may be in English, Hindi, Hinglish, or Hindi Devanagari script.
 
-You MUST always provide translations for BOTH languages. Never leave Sanskrit empty.
+You MUST always provide translations for ALL THREE languages. Never leave any field empty.
 
 Reply ONLY with this exact JSON format (no markdown, no extra text):
 {
@@ -32,7 +32,10 @@ Reply ONLY with this exact JSON format (no markdown, no extra text):
   "marathi_tip": "one short Marathi usage tip in English",
   "sanskrit": "Sanskrit sentence in Devanagari script",
   "sanskrit_roman": "Sanskrit pronunciation in Roman letters",
-  "sanskrit_tip": "one short Sanskrit note in English"
+  "sanskrit_tip": "one short Sanskrit note in English",
+  "french": "French sentence",
+  "french_roman": "French pronunciation guide in simple phonetics",
+  "french_tip": "one short French usage tip in English"
 }
 
 Example for "I am happy":
@@ -42,7 +45,10 @@ Example for "I am happy":
   "marathi_tip": "Use झाले if you are female",
   "sanskrit": "अहम् प्रसन्नः अस्मि",
   "sanskrit_roman": "Aham prasannah asmi",
-  "sanskrit_tip": "प्रसन्न means cheerful/pleased in Sanskrit"
+  "sanskrit_tip": "प्रसन्न means cheerful/pleased in Sanskrit",
+  "french": "Je suis heureux",
+  "french_roman": "Zhuh swee uh-ruh",
+  "french_tip": "Use heureuse if you are female"
 }`,
         messages: [{ role: 'user', content: text.trim() }]
       })
@@ -55,25 +61,26 @@ Example for "I am happy":
 
     let obj;
     try {
-      // Try direct JSON parse first
       obj = JSON.parse(raw);
     } catch(e) {
-      // Try extracting JSON from response
       const m = raw.match(/\{[\s\S]*\}/);
-      if (m) {
-        try { obj = JSON.parse(m[0]); } catch(e2) { obj = null; }
-      }
+      if (m) { try { obj = JSON.parse(m[0]); } catch(e2) { obj = null; } }
     }
 
     if (!obj || !obj.marathi) {
       return res.status(500).json({ error: 'Translation failed. Please try again.' });
     }
 
-    // Ensure Sanskrit fields always have values
-    if (!obj.sanskrit || obj.sanskrit === '' || obj.sanskrit === '—') {
-      obj.sanskrit = obj.marathi; // fallback to Marathi if Sanskrit missing
-      obj.sanskrit_roman = obj.marathi_roman || '';
+    // Ensure all fields have values
+    if (!obj.sanskrit || obj.sanskrit.trim() === '') {
+      obj.sanskrit = '—';
+      obj.sanskrit_roman = '';
       obj.sanskrit_tip = 'Sanskrit translation not available for this phrase';
+    }
+    if (!obj.french || obj.french.trim() === '') {
+      obj.french = '—';
+      obj.french_roman = '';
+      obj.french_tip = 'French translation not available for this phrase';
     }
 
     return res.status(200).json(obj);
