@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="description" content="Learn Marathi & Sanskrit — translate English, Hindi & Hinglish instantly. Free. By @mainormerimumbai">
+<meta name="description" content="Learn Marathi, Sanskrit & French — translate English, Hindi & Hinglish instantly. Free. By @mainormerimumbai">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,7 +12,7 @@
 <meta name="app-version" content="5.0">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-<title>मराठी शिका — Learn Marathi & Sanskrit</title>
+<title>मराठी शिका — Learn Marathi, Sanskrit & French</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -24,12 +24,14 @@
   --yt:#FF0000; --fb:#1877F2; --green:#00c896;
   --skt:#c8a200;  /* Sanskrit gold */
   --skt-bg:#1a1500;
+  --fr:#0055A4;   /* French blue */
+  --fr2:#EF4135;  /* French red */
   --r:12px; --rs:8px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;align-items:center;}
-.shell{width:100%;max-width:720px;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);border-left:1px solid var(--border);border-right:1px solid var(--border);}
+.shell{width:100%;max-width:960px;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);border-left:1px solid var(--border);border-right:1px solid var(--border);}
 
 /* Install Banner */
 #ibanner{display:none;background:linear-gradient(90deg,#1877F2,#E1306C);padding:10px 14px;align-items:center;gap:10px;}
@@ -111,7 +113,10 @@ input:checked+.slider::before{transform:translateX(19px);}
 .result-wrap{display:none;margin:0 12px 12px;flex-direction:column;gap:10px;}
 .result-wrap.show{display:flex;}
 @media(min-width:600px){
-  .result-wrap.show{flex-direction:row;align-items:flex-start;}
+  .result-wrap.show{flex-direction:row;align-items:flex-start;flex-wrap:wrap;}
+  .result-wrap.show > *{flex:1;min-width:220px;}
+}
+@media(min-width:800px){
   .result-wrap.show > *{flex:1;min-width:0;}
 }
 
@@ -137,6 +142,15 @@ input:checked+.slider::before{transform:translateX(19px);}
 .tip-body{font-size:12px;color:var(--text2);}
 .tip-box.skt{border-left-color:var(--skt);}
 .tip-lbl.skt{color:var(--skt);}
+.r-card-french{border-radius:16px;overflow:hidden;border:1px solid rgba(0,85,164,.4);}
+.r-top-french{background:linear-gradient(160deg,#001a4a,#002060,#0a0a1a);padding:16px 18px;}
+.r-badge-french{display:inline-block;background:linear-gradient(90deg,#0055A4,#EF4135);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:4px;letter-spacing:.06em;margin-bottom:8px;}
+.french-out{font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:#fff;line-height:1.5;}
+.roman-inline.fr-roman{color:rgba(200,220,255,.6);}
+.hear-pill.fr{background:rgba(0,85,164,.2);border-color:rgba(0,85,164,.4);color:#6ab0ff;}
+.tip-box.fr{border-left-color:#0055A4;}
+.tip-lbl.fr{color:#6ab0ff;}
+
 .hear-pill{display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:7px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:20px;color:rgba(255,255,255,.85);font-size:12px;cursor:pointer;transition:background .2s;}
 .roman-inline{font-size:14px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.4;font-style:italic;letter-spacing:.01em;}
 .skt-roman{color:rgba(255,215,0,.6);}
@@ -219,7 +233,7 @@ nav{position:sticky;bottom:0;background:rgba(10,10,10,.96);backdrop-filter:blur(
 
 <!-- Header -->
 <header>
-  <div class="logo">मराठी & संस्कृत शिका</div>
+  <div class="logo">मराठी, संस्कृत & French शिका</div>
   <div class="h-icons">
     <a class="h-icon yt" href="https://youtube.com/@mainormerimumbai?si=Y9gUuFwrqNLkrY0f" target="_blank">▶</a>
     <a class="h-icon fb" href="https://facebook.com/share/18abK6F3fy/?mibextid=wwXIfr" target="_blank">f</a>
@@ -259,7 +273,7 @@ nav{position:sticky;bottom:0;background:rgba(10,10,10,.96);backdrop-filter:blur(
       <span class="lp en">English</span>
       <span class="lp hi">Hindi</span>
       <span class="lp hl">Hinglish</span>
-      <span style="font-size:11px;color:var(--text3)">→ मराठी &amp; संस्कृत</span>
+      <span style="font-size:11px;color:var(--text3)">→ मराठी, संस्कृत & French</span>
     </div>
     <div class="t-input">
       <textarea id="inp" placeholder="mujhe marathi seekhna hai&#10;I am hungry&#10;Kal main market gaya tha"></textarea>
@@ -314,6 +328,22 @@ nav{position:sticky;bottom:0;background:rgba(10,10,10,.96);backdrop-filter:blur(
       </div>
     </div>
 
+    <!-- French Result -->
+    <div class="r-card-french">
+      <div class="r-top-french">
+        <div class="r-badge-french">🇫🇷 FRANÇAIS — FRENCH</div>
+        <div class="french-out" id="out-french"></div>
+        <div class="roman-inline fr-roman" id="out-french-roman"></div>
+        <button class="hear-pill fr" id="hear-french">🔊 Hear French</button>
+      </div>
+      <div class="r-bot">
+        <div class="tip-box fr">
+          <div class="tip-lbl fr">💡 French Tip</div>
+          <div class="tip-body" id="out-french-tip"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Quick Phrases -->
@@ -341,7 +371,7 @@ nav{position:sticky;bottom:0;background:rgba(10,10,10,.96);backdrop-filter:blur(
 <div class="panel" id="panel-vocab">
   <div style="padding:12px 12px 0">
     <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;">
-      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">📖 Marathi Vocabulary</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">📖 Marathi, Sanskrit & French Vocabulary</div>
       <input type="text" id="vocab-search" placeholder="Search words... (e.g. water, hello)" style="width:100%;padding:11px 13px;background:var(--input-bg);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:15px;outline:none;font-family:inherit;">
     </div>
     <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none;">
@@ -376,13 +406,13 @@ nav{position:sticky;bottom:0;background:rgba(10,10,10,.96);backdrop-filter:blur(
   <div class="about-section">
     <div class="a-card">
       <h3>🙏 About मराठी शिका</h3>
-      <p>A free app to help anyone learn <span class="acc">Marathi & Sanskrit</span> — made with ❤️ by <span class="acc">@mainormerimumbai</span>.</p>
+      <p>A free app to help anyone learn <span class="acc">Marathi, Sanskrit & French</span> — made with ❤️ by <span class="acc">@mainormerimumbai</span>.</p>
     </div>
     <div class="a-card">
       <h3>✨ How to use</h3>
       <ul>
         <li>Type in <span class="acc">English, Hindi or Hinglish</span></li>
-        <li>Get both <span class="acc">Marathi + Sanskrit</span> translation</li>
+        <li>Get <span class="acc">Marathi, Sanskrit & French</span> translation</li>
         <li>Tap 🎤 to <span class="acc">speak</span></li>
         <li>Tap 🔊 to <span class="acc">hear pronunciation</span></li>
         <li>Tap story circles for <span class="acc">quick phrases</span></li>
@@ -433,122 +463,122 @@ var STORIES={
 
 var VOCAB=[
   // Numbers
-  {e:"One",m:"एक",r:"Ek",s:"एकम्",sr:"Ekam",c:"numbers"},
-  {e:"Two",m:"दोन",r:"Don",s:"द्वे",sr:"Dve",c:"numbers"},
-  {e:"Three",m:"तीन",r:"Teen",s:"त्रीणि",sr:"Treeni",c:"numbers"},
-  {e:"Four",m:"चार",r:"Chaar",s:"चत्वारि",sr:"Chatvaari",c:"numbers"},
-  {e:"Five",m:"पाच",r:"Paach",s:"पञ्च",sr:"Pancha",c:"numbers"},
-  {e:"Six",m:"सहा",r:"Sahaa",s:"षट्",sr:"Shat",c:"numbers"},
-  {e:"Seven",m:"सात",r:"Saat",s:"सप्त",sr:"Sapta",c:"numbers"},
-  {e:"Eight",m:"आठ",r:"Aath",s:"अष्ट",sr:"Ashta",c:"numbers"},
-  {e:"Nine",m:"नऊ",r:"Nau",s:"नव",sr:"Nava",c:"numbers"},
-  {e:"Ten",m:"दहा",r:"Dahaa",s:"दश",sr:"Dasha",c:"numbers"},
-  {e:"Twenty",m:"वीस",r:"Vees",s:"विंशति",sr:"Vinshati",c:"numbers"},
-  {e:"Fifty",m:"पन्नास",r:"Pannaas",s:"पञ्चाशत्",sr:"Panchaashat",c:"numbers"},
-  {e:"Hundred",m:"शंभर",r:"Shambhar",s:"शतम्",sr:"Shatam",c:"numbers"},
-  {e:"Thousand",m:"हजार",r:"Hazaar",s:"सहस्रम्",sr:"Sahasram",c:"numbers"},
-  {e:"Zero",m:"शून्य",r:"Shunya",s:"शून्यम्",sr:"Shoonyam",c:"numbers"},
+  {e:"One",m:"एक",r:"Ek",s:"एकम्",sr:"Ekam",f:"Un",fr:"Uh",c:"numbers"},
+  {e:"Two",m:"दोन",r:"Don",s:"द्वे",sr:"Dve",f:"Deux",fr:"Duh",c:"numbers"},
+  {e:"Three",m:"तीन",r:"Teen",s:"त्रीणि",sr:"Treeni",f:"Trois",fr:"Twah",c:"numbers"},
+  {e:"Four",m:"चार",r:"Chaar",s:"चत्वारि",sr:"Chatvaari",f:"Quatre",fr:"Kah-truh",c:"numbers"},
+  {e:"Five",m:"पाच",r:"Paach",s:"पञ्च",sr:"Pancha",f:"Cinq",fr:"Sank",c:"numbers"},
+  {e:"Six",m:"सहा",r:"Sahaa",s:"षट्",sr:"Shat",f:"Six",fr:"Sees",c:"numbers"},
+  {e:"Seven",m:"सात",r:"Saat",s:"सप्त",sr:"Sapta",f:"Sept",fr:"Set",c:"numbers"},
+  {e:"Eight",m:"आठ",r:"Aath",s:"अष्ट",sr:"Ashta",f:"Huit",fr:"Weet",c:"numbers"},
+  {e:"Nine",m:"नऊ",r:"Nau",s:"नव",sr:"Nava",f:"Neuf",fr:"Nuhf",c:"numbers"},
+  {e:"Ten",m:"दहा",r:"Dahaa",s:"दश",sr:"Dasha",f:"Dix",fr:"Dees",c:"numbers"},
+  {e:"Twenty",m:"वीस",r:"Vees",s:"विंशति",sr:"Vinshati",f:"Vingt",fr:"Van",c:"numbers"},
+  {e:"Fifty",m:"पन्नास",r:"Pannaas",s:"पञ्चाशत्",sr:"Panchaashat",f:"Cinquante",fr:"Sank-ahnt",c:"numbers"},
+  {e:"Hundred",m:"शंभर",r:"Shambhar",s:"शतम्",sr:"Shatam",f:"Cent",fr:"Sahn",c:"numbers"},
+  {e:"Thousand",m:"हजार",r:"Hazaar",s:"सहस्रम्",sr:"Sahasram",f:"Mille",fr:"Meel",c:"numbers"},
+  {e:"Zero",m:"शून्य",r:"Shunya",s:"शून्यम्",sr:"Shoonyam",f:"Zéro",fr:"Zay-roh",c:"numbers"},
   // Greetings
-  {e:"Hello",m:"नमस्कार",r:"Namaskaar",s:"नमस्ते",sr:"Namaste",c:"greetings"},
-  {e:"Good morning",m:"शुभ प्रभात",r:"Shubh Prabhaat",s:"शुभं प्रभातम्",sr:"Shubham Praabhaatam",c:"greetings"},
-  {e:"Good night",m:"शुभ रात्री",r:"Shubh Raatri",s:"शुभरात्रिः",sr:"Shubha-Raatri",c:"greetings"},
-  {e:"Thank you",m:"धन्यवाद",r:"Dhanyavaad",s:"धन्यवादः",sr:"Dhanyavaadah",c:"greetings"},
-  {e:"Welcome",m:"स्वागत आहे",r:"Swaagat Aahe",s:"स्वागतम्",sr:"Swagatam",c:"greetings"},
-  {e:"Goodbye",m:"निरोप",r:"Nirop",s:"विदाय",sr:"Vidaaya",c:"greetings"},
-  {e:"Sorry",m:"माफ करा",r:"Maaf Karaa",s:"क्षमस्व",sr:"Kshamasva",c:"greetings"},
-  {e:"Yes",m:"हो",r:"Ho",s:"आम्",sr:"Aam",c:"greetings"},
-  {e:"No",m:"नाही",r:"Naahi",s:"न",sr:"Na",c:"greetings"},
-  {e:"Please",m:"कृपया",r:"Krupayaa",s:"कृपया",sr:"Krupayaa",c:"greetings"},
+  {e:"Hello",m:"नमस्कार",r:"Namaskaar",s:"नमस्ते",sr:"Namaste",f:"Bonjour",fr:"Bon-zhoor",c:"greetings"},
+  {e:"Good morning",m:"शुभ प्रभात",r:"Shubh Prabhaat",s:"शुभं प्रभातम्",sr:"Shubham Praabhaatam",f:"Bonjour",fr:"Bon-zhoor",c:"greetings"},
+  {e:"Good night",m:"शुभ रात्री",r:"Shubh Raatri",s:"शुभरात्रिः",sr:"Shubha-Raatri",f:"Bonne nuit",fr:"Bon nwee",c:"greetings"},
+  {e:"Thank you",m:"धन्यवाद",r:"Dhanyavaad",s:"धन्यवादः",sr:"Dhanyavaadah",f:"Merci",fr:"Mehr-see",c:"greetings"},
+  {e:"Welcome",m:"स्वागत आहे",r:"Swaagat Aahe",s:"स्वागतम्",sr:"Swagatam",f:"Bienvenue",fr:"Byeh-vuh-noo",c:"greetings"},
+  {e:"Goodbye",m:"निरोप",r:"Nirop",s:"विदाय",sr:"Vidaaya",f:"Au revoir",fr:"Oh ruh-vwahr",c:"greetings"},
+  {e:"Sorry",m:"माफ करा",r:"Maaf Karaa",s:"क्षमस्व",sr:"Kshamasva",f:"Désolé",fr:"Day-zo-lay",c:"greetings"},
+  {e:"Yes",m:"हो",r:"Ho",s:"आम्",sr:"Aam",f:"Oui",fr:"Wee",c:"greetings"},
+  {e:"No",m:"नाही",r:"Naahi",s:"न",sr:"Na",f:"Non",fr:"Nohn",c:"greetings"},
+  {e:"Please",m:"कृपया",r:"Krupayaa",s:"कृपया",sr:"Krupayaa",f:"S'il vous plaît",fr:"Seel voo play",c:"greetings"},
   // Food
-  {e:"Water",m:"पाणी",r:"Paani",s:"जलम्",sr:"Jalam",c:"food"},
-  {e:"Food / Meal",m:"जेवण",r:"Jevan",s:"भोजनम्",sr:"Bhojanam",c:"food"},
-  {e:"Rice",m:"भात",r:"Bhaat",s:"ओदनम्",sr:"Odanam",c:"food"},
-  {e:"Bread",m:"पोळी",r:"Poli",s:"रोटिका",sr:"Rotika",c:"food"},
-  {e:"Milk",m:"दूध",r:"Doodh",s:"दुग्धम्",sr:"Dugdham",c:"food"},
-  {e:"Tea",m:"चहा",r:"Chahaa",s:"चायः",sr:"Chaayah",c:"food"},
-  {e:"Sugar",m:"साखर",r:"Saakhar",s:"शर्करा",sr:"Sharkaraa",c:"food"},
-  {e:"Salt",m:"मीठ",r:"Meeth",s:"लवणम्",sr:"Lavanam",c:"food"},
-  {e:"Sweet",m:"गोड",r:"God",s:"मधुरम्",sr:"Madhuram",c:"food"},
-  {e:"Hungry",m:"भूक",r:"Bhook",s:"क्षुधा",sr:"Kshudha",c:"food"},
-  {e:"Fruit",m:"फळ",r:"Phal",s:"फलम्",sr:"Phalam",c:"food"},
+  {e:"Water",m:"पाणी",r:"Paani",s:"जलम्",sr:"Jalam",f:"Eau",fr:"Oh",c:"food"},
+  {e:"Food / Meal",m:"जेवण",r:"Jevan",s:"भोजनम्",sr:"Bhojanam",f:"Repas",fr:"Ruh-pah",c:"food"},
+  {e:"Rice",m:"भात",r:"Bhaat",s:"ओदनम्",sr:"Odanam",f:"Riz",fr:"Ree",c:"food"},
+  {e:"Bread",m:"पोळी",r:"Poli",s:"रोटिका",sr:"Rotika",f:"Pain",fr:"Pan",c:"food"},
+  {e:"Milk",m:"दूध",r:"Doodh",s:"दुग्धम्",sr:"Dugdham",f:"Lait",fr:"Lay",c:"food"},
+  {e:"Tea",m:"चहा",r:"Chahaa",s:"चायः",sr:"Chaayah",f:"Thé",fr:"Tay",c:"food"},
+  {e:"Sugar",m:"साखर",r:"Saakhar",s:"शर्करा",sr:"Sharkaraa",f:"Sucre",fr:"Soo-kruh",c:"food"},
+  {e:"Salt",m:"मीठ",r:"Meeth",s:"लवणम्",sr:"Lavanam",f:"Sel",fr:"Sel",c:"food"},
+  {e:"Sweet",m:"गोड",r:"God",s:"मधुरम्",sr:"Madhuram",f:"Sucré",fr:"Soo-kray",c:"food"},
+  {e:"Hungry",m:"भूक",r:"Bhook",s:"क्षुधा",sr:"Kshudha",f:"Faim",fr:"Fam",c:"food"},
+  {e:"Fruit",m:"फळ",r:"Phal",s:"फलम्",sr:"Phalam",f:"Fruit",fr:"Frwee",c:"food"},
   // Colors
-  {e:"Red",m:"लाल",r:"Laal",s:"रक्तम्",sr:"Raktam",c:"colors"},
-  {e:"Blue",m:"निळा",r:"Nilaa",s:"नीलम्",sr:"Neelam",c:"colors"},
-  {e:"Green",m:"हिरवा",r:"Hirvaa",s:"हरितम्",sr:"Haritam",c:"colors"},
-  {e:"Yellow",m:"पिवळा",r:"Pivlaa",s:"पीतम्",sr:"Peetam",c:"colors"},
-  {e:"White",m:"पांढरा",r:"Paandharaa",s:"श्वेतम्",sr:"Shvetam",c:"colors"},
-  {e:"Black",m:"काळा",r:"Kaalaa",s:"कृष्णम्",sr:"Krishnam",c:"colors"},
-  {e:"Orange",m:"नारंगी",r:"Naarangi",s:"नारङ्गम्",sr:"Naarangam",c:"colors"},
-  {e:"Pink",m:"गुलाबी",r:"Gulaabi",s:"पाटलम्",sr:"Paatalam",c:"colors"},
-  {e:"Purple",m:"जांभळा",r:"Jaambhalaa",s:"धूम्रम्",sr:"Dhoumram",c:"colors"},
+  {e:"Red",m:"लाल",r:"Laal",s:"रक्तम्",sr:"Raktam",f:"Rouge",fr:"Roozh",c:"colors"},
+  {e:"Blue",m:"निळा",r:"Nilaa",s:"नीलम्",sr:"Neelam",f:"Bleu",fr:"Bluh",c:"colors"},
+  {e:"Green",m:"हिरवा",r:"Hirvaa",s:"हरितम्",sr:"Haritam",f:"Vert",fr:"Vehr",c:"colors"},
+  {e:"Yellow",m:"पिवळा",r:"Pivlaa",s:"पीतम्",sr:"Peetam",f:"Jaune",fr:"Zhohn",c:"colors"},
+  {e:"White",m:"पांढरा",r:"Paandharaa",s:"श्वेतम्",sr:"Shvetam",f:"Blanc",fr:"Blahn",c:"colors"},
+  {e:"Black",m:"काळा",r:"Kaalaa",s:"कृष्णम्",sr:"Krishnam",f:"Noir",fr:"Nwahr",c:"colors"},
+  {e:"Orange",m:"नारंगी",r:"Naarangi",s:"नारङ्गम्",sr:"Naarangam",f:"Orange",fr:"Oh-rahnzh",c:"colors"},
+  {e:"Pink",m:"गुलाबी",r:"Gulaabi",s:"पाटलम्",sr:"Paatalam",f:"Rose",fr:"Rohz",c:"colors"},
+  {e:"Purple",m:"जांभळा",r:"Jaambhalaa",s:"धूम्रम्",sr:"Dhoumram",f:"Violet",fr:"Vyo-lay",c:"colors"},
   // Family
-  {e:"Mother",m:"आई",r:"Aai",s:"माता",sr:"Maataa",c:"family"},
-  {e:"Father",m:"बाबा / वडील",r:"Baabaa / Vadil",s:"पिता",sr:"Pitaa",c:"family"},
-  {e:"Brother",m:"भाऊ",r:"Bhaau",s:"भ्राता",sr:"Bhraataa",c:"family"},
-  {e:"Sister",m:"बहीण",r:"Baheen",s:"भगिनी",sr:"Bhaginee",c:"family"},
-  {e:"Son",m:"मुलगा",r:"Mulgaa",s:"पुत्रः",sr:"Putrah",c:"family"},
-  {e:"Daughter",m:"मुलगी",r:"Mulgi",s:"पुत्री",sr:"Putree",c:"family"},
-  {e:"Husband",m:"नवरा",r:"Navraa",s:"पतिः",sr:"Patih",c:"family"},
-  {e:"Wife",m:"बायको",r:"Baayko",s:"पत्नी",sr:"Patnee",c:"family"},
-  {e:"Grandfather",m:"आजोबा",r:"Aajoobaa",s:"पितामहः",sr:"Pitaamahah",c:"family"},
-  {e:"Grandmother",m:"आजी",r:"Aaji",s:"पितामही",sr:"Pitaamahee",c:"family"},
-  {e:"Friend",m:"मित्र",r:"Mitra",s:"मित्रम्",sr:"Mitram",c:"family"},
+  {e:"Mother",m:"आई",r:"Aai",s:"माता",sr:"Maataa",f:"Mère",fr:"Mehr",c:"family"},
+  {e:"Father",m:"बाबा / वडील",r:"Baabaa / Vadil",s:"पिता",sr:"Pitaa",f:"Père",fr:"Pehr",c:"family"},
+  {e:"Brother",m:"भाऊ",r:"Bhaau",s:"भ्राता",sr:"Bhraataa",f:"Frère",fr:"Frehr",c:"family"},
+  {e:"Sister",m:"बहीण",r:"Baheen",s:"भगिनी",sr:"Bhaginee",f:"Sœur",fr:"Suhr",c:"family"},
+  {e:"Son",m:"मुलगा",r:"Mulgaa",s:"पुत्रः",sr:"Putrah",f:"Fils",fr:"Fees",c:"family"},
+  {e:"Daughter",m:"मुलगी",r:"Mulgi",s:"पुत्री",sr:"Putree",f:"Fille",fr:"Fee-yuh",c:"family"},
+  {e:"Husband",m:"नवरा",r:"Navraa",s:"पतिः",sr:"Patih",f:"Mari",fr:"Mah-ree",c:"family"},
+  {e:"Wife",m:"बायको",r:"Baayko",s:"पत्नी",sr:"Patnee",f:"Femme",fr:"Fam",c:"family"},
+  {e:"Grandfather",m:"आजोबा",r:"Aajoobaa",s:"पितामहः",sr:"Pitaamahah",f:"Grand-père",fr:"Grahn-pehr",c:"family"},
+  {e:"Grandmother",m:"आजी",r:"Aaji",s:"पितामही",sr:"Pitaamahee",f:"Grand-mère",fr:"Grahn-mehr",c:"family"},
+  {e:"Friend",m:"मित्र",r:"Mitra",s:"मित्रम्",sr:"Mitram",f:"Ami",fr:"Ah-mee",c:"family"},
   // Body
-  {e:"Head",m:"डोके",r:"Doke",s:"शिरः",sr:"Shirah",c:"body"},
-  {e:"Eye",m:"डोळा",r:"Dolaa",s:"नेत्रम्",sr:"Netram",c:"body"},
-  {e:"Ear",m:"कान",r:"Kaan",s:"कर्णः",sr:"Karnah",c:"body"},
-  {e:"Nose",m:"नाक",r:"Naak",s:"नासा",sr:"Naasaa",c:"body"},
-  {e:"Mouth",m:"तोंड",r:"Tond",s:"मुखम्",sr:"Mukham",c:"body"},
-  {e:"Hand",m:"हात",r:"Haat",s:"हस्तः",sr:"Hastah",c:"body"},
-  {e:"Leg",m:"पाय",r:"Paay",s:"पादः",sr:"Paadah",c:"body"},
-  {e:"Stomach",m:"पोट",r:"Pot",s:"उदरम्",sr:"Udaram",c:"body"},
+  {e:"Head",m:"डोके",r:"Doke",s:"शिरः",sr:"Shirah",f:"Tête",fr:"Tet",c:"body"},
+  {e:"Eye",m:"डोळा",r:"Dolaa",s:"नेत्रम्",sr:"Netram",f:"Œil",fr:"Uh-yuh",c:"body"},
+  {e:"Ear",m:"कान",r:"Kaan",s:"कर्णः",sr:"Karnah",f:"Oreille",fr:"Oh-ray-yuh",c:"body"},
+  {e:"Nose",m:"नाक",r:"Naak",s:"नासा",sr:"Naasaa",f:"Nez",fr:"Nay",c:"body"},
+  {e:"Mouth",m:"तोंड",r:"Tond",s:"मुखम्",sr:"Mukham",f:"Bouche",fr:"Boosh",c:"body"},
+  {e:"Hand",m:"हात",r:"Haat",s:"हस्तः",sr:"Hastah",f:"Main",fr:"Man",c:"body"},
+  {e:"Leg",m:"पाय",r:"Paay",s:"पादः",sr:"Paadah",f:"Jambe",fr:"Zhahmb",c:"body"},
+  {e:"Stomach",m:"पोट",r:"Pot",s:"उदरम्",sr:"Udaram",f:"Ventre",fr:"Vahn-truh",c:"body"},
   // Time
-  {e:"Today",m:"आज",r:"Aaj",s:"अद्य",sr:"Adya",c:"time"},
-  {e:"Tomorrow",m:"उद्या",r:"Udyaa",s:"श्वः",sr:"Shvah",c:"time"},
-  {e:"Yesterday",m:"काल",r:"Kaal",s:"ह्यः",sr:"Hyah",c:"time"},
-  {e:"Morning",m:"सकाळ",r:"Sakaal",s:"प्रातः",sr:"Praatah",c:"time"},
-  {e:"Evening",m:"संध्याकाळ",r:"Sandhyakaal",s:"सायंकालः",sr:"Saayankaalah",c:"time"},
-  {e:"Night",m:"रात्र",r:"Raatr",s:"रात्रिः",sr:"Raatri",c:"time"},
-  {e:"Monday",m:"सोमवार",r:"Somvaar",s:"सोमवासरः",sr:"Somavasarah",c:"time"},
-  {e:"Tuesday",m:"मंगळवार",r:"Mangalvaar",s:"मङ्गलवासरः",sr:"Mangalavasarah",c:"time"},
-  {e:"Wednesday",m:"बुधवार",r:"Budhvaar",s:"बुधवासरः",sr:"Budhavasarah",c:"time"},
-  {e:"Thursday",m:"गुरुवार",r:"Guruvaar",s:"गुरुवासरः",sr:"Guruvasarah",c:"time"},
-  {e:"Friday",m:"शुक्रवार",r:"Shukvaar",s:"शुक्रवासरः",sr:"Shukravasarah",c:"time"},
-  {e:"Saturday",m:"शनिवार",r:"Shanivaar",s:"शनिवासरः",sr:"Shanivasarah",c:"time"},
-  {e:"Sunday",m:"रविवार",r:"Ravivaar",s:"रविवासरः",sr:"Ravivasarah",c:"time"},
-  {e:"Month",m:"महिना",r:"Mahinaa",s:"मासः",sr:"Maasah",c:"time"},
-  {e:"Year",m:"वर्ष",r:"Varsh",s:"वर्षम्",sr:"Varsham",c:"time"},
+  {e:"Today",m:"आज",r:"Aaj",s:"अद्य",sr:"Adya",f:"Aujourd'hui",fr:"Oh-zhoor-dwee",c:"time"},
+  {e:"Tomorrow",m:"उद्या",r:"Udyaa",s:"श्वः",sr:"Shvah",f:"Demain",fr:"Duh-man",c:"time"},
+  {e:"Yesterday",m:"काल",r:"Kaal",s:"ह्यः",sr:"Hyah",f:"Hier",fr:"Yehr",c:"time"},
+  {e:"Morning",m:"सकाळ",r:"Sakaal",s:"प्रातः",sr:"Praatah",f:"Matin",fr:"Mah-tan",c:"time"},
+  {e:"Evening",m:"संध्याकाळ",r:"Sandhyakaal",s:"सायंकालः",sr:"Saayankaalah",f:"Soir",fr:"Swahr",c:"time"},
+  {e:"Night",m:"रात्र",r:"Raatr",s:"रात्रिः",sr:"Raatri",f:"Nuit",fr:"Nwee",c:"time"},
+  {e:"Monday",m:"सोमवार",r:"Somvaar",s:"सोमवासरः",sr:"Somavasarah",f:"Lundi",fr:"Lun-dee",c:"time"},
+  {e:"Tuesday",m:"मंगळवार",r:"Mangalvaar",s:"मङ्गलवासरः",sr:"Mangalavasarah",f:"Mardi",fr:"Mar-dee",c:"time"},
+  {e:"Wednesday",m:"बुधवार",r:"Budhvaar",s:"बुधवासरः",sr:"Budhavasarah",f:"Mercredi",fr:"Mehr-kruh-dee",c:"time"},
+  {e:"Thursday",m:"गुरुवार",r:"Guruvaar",s:"गुरुवासरः",sr:"Guruvasarah",f:"Jeudi",fr:"Zhuh-dee",c:"time"},
+  {e:"Friday",m:"शुक्रवार",r:"Shukvaar",s:"शुक्रवासरः",sr:"Shukravasarah",f:"Vendredi",fr:"Vahn-druh-dee",c:"time"},
+  {e:"Saturday",m:"शनिवार",r:"Shanivaar",s:"शनिवासरः",sr:"Shanivasarah",f:"Samedi",fr:"Sam-dee",c:"time"},
+  {e:"Sunday",m:"रविवार",r:"Ravivaar",s:"रविवासरः",sr:"Ravivasarah",f:"Dimanche",fr:"Dee-mahnsh",c:"time"},
+  {e:"Month",m:"महिना",r:"Mahinaa",s:"मासः",sr:"Maasah",f:"Mois",fr:"Mwah",c:"time"},
+  {e:"Year",m:"वर्ष",r:"Varsh",s:"वर्षम्",sr:"Varsham",f:"Année",fr:"Ah-nay",c:"time"},
   // Places
-  {e:"House",m:"घर",r:"Ghar",s:"गृहम्",sr:"Gruham",c:"places"},
-  {e:"School",m:"शाळा",r:"Shaalaa",s:"विद्यालयः",sr:"Vidyaalayah",c:"places"},
-  {e:"Hospital",m:"रुग्णालय",r:"Rugnalay",s:"चिकित्सालयः",sr:"Chikitsaalayah",c:"places"},
-  {e:"Market",m:"बाजार",r:"Baajaar",s:"विपणिः",sr:"Vipanih",c:"places"},
-  {e:"Temple",m:"मंदिर",r:"Mandir",s:"देवालयः",sr:"Devaalayah",c:"places"},
-  {e:"Road",m:"रस्ता",r:"Rastaa",s:"मार्गः",sr:"Maargah",c:"places"},
-  {e:"Mumbai",m:"मुंबई",r:"Mumbai",s:"मुम्बापुरी",sr:"Mumbaapuree",c:"places"},
-  {e:"City",m:"शहर",r:"Shahar",s:"नगरम्",sr:"Nagaram",c:"places"},
+  {e:"House",m:"घर",r:"Ghar",s:"गृहम्",sr:"Gruham",f:"Maison",fr:"May-zohn",c:"places"},
+  {e:"School",m:"शाळा",r:"Shaalaa",s:"विद्यालयः",sr:"Vidyaalayah",f:"École",fr:"Ay-kol",c:"places"},
+  {e:"Hospital",m:"रुग्णालय",r:"Rugnalay",s:"चिकित्सालयः",sr:"Chikitsaalayah",f:"Hôpital",fr:"Oh-pee-tal",c:"places"},
+  {e:"Market",m:"बाजार",r:"Baajaar",s:"विपणिः",sr:"Vipanih",f:"Marché",fr:"Mar-shay",c:"places"},
+  {e:"Temple",m:"मंदिर",r:"Mandir",s:"देवालयः",sr:"Devaalayah",f:"Temple",fr:"Tahm-pluh",c:"places"},
+  {e:"Road",m:"रस्ता",r:"Rastaa",s:"मार्गः",sr:"Maargah",f:"Route",fr:"Root",c:"places"},
+  {e:"City",m:"शहर",r:"Shahar",s:"नगरम्",sr:"Nagaram",f:"Ville",fr:"Veel",c:"places"},
+  {e:"Mumbai",m:"मुंबई",r:"Mumbai",s:"मुम्बापुरी",sr:"Mumbaapuree",f:"Bombay",fr:"Bom-bay",c:"places"},
   // Verbs
-  {e:"To eat",m:"खाणे",r:"Khane",s:"खादितुम्",sr:"Khaaditum",c:"verbs"},
-  {e:"To drink",m:"पिणे",r:"Pine",s:"पातुम्",sr:"Paatum",c:"verbs"},
-  {e:"To go",m:"जाणे",r:"Jaane",s:"गन्तुम्",sr:"Gantum",c:"verbs"},
-  {e:"To come",m:"येणे",r:"Yene",s:"आगन्तुम्",sr:"Aagantum",c:"verbs"},
-  {e:"To speak",m:"बोलणे",r:"Bolne",s:"वक्तुम्",sr:"Vaktum",c:"verbs"},
-  {e:"To listen",m:"ऐकणे",r:"Aikne",s:"श्रोतुम्",sr:"Shrotum",c:"verbs"},
-  {e:"To see",m:"पाहणे",r:"Paahne",s:"द्रष्टुम्",sr:"Drashtum",c:"verbs"},
-  {e:"To sleep",m:"झोपणे",r:"Jhopne",s:"स्वप्तुम्",sr:"Svaptum",c:"verbs"},
-  {e:"To laugh",m:"हसणे",r:"Hasne",s:"हसितुम्",sr:"Hasitum",c:"verbs"},
-  {e:"To cry",m:"रडणे",r:"Radne",s:"रोदितुम्",sr:"Roditum",c:"verbs"},
+  {e:"To eat",m:"खाणे",r:"Khane",s:"खादितुम्",sr:"Khaaditum",f:"Manger",fr:"Mahn-zhay",c:"verbs"},
+  {e:"To drink",m:"पिणे",r:"Pine",s:"पातुम्",sr:"Paatum",f:"Boire",fr:"Bwahr",c:"verbs"},
+  {e:"To go",m:"जाणे",r:"Jaane",s:"गन्तुम्",sr:"Gantum",f:"Aller",fr:"Ah-lay",c:"verbs"},
+  {e:"To come",m:"येणे",r:"Yene",s:"आगन्तुम्",sr:"Aagantum",f:"Venir",fr:"Vuh-neer",c:"verbs"},
+  {e:"To speak",m:"बोलणे",r:"Bolne",s:"वक्तुम्",sr:"Vaktum",f:"Parler",fr:"Par-lay",c:"verbs"},
+  {e:"To listen",m:"ऐकणे",r:"Aikne",s:"श्रोतुम्",sr:"Shrotum",f:"Écouter",fr:"Ay-koo-tay",c:"verbs"},
+  {e:"To see",m:"पाहणे",r:"Paahne",s:"द्रष्टुम्",sr:"Drashtum",f:"Voir",fr:"Vwahr",c:"verbs"},
+  {e:"To sleep",m:"झोपणे",r:"Jhopne",s:"स्वप्तुम्",sr:"Svaptum",f:"Dormir",fr:"Dor-meer",c:"verbs"},
+  {e:"To laugh",m:"हसणे",r:"Hasne",s:"हसितुम्",sr:"Hasitum",f:"Rire",fr:"Reer",c:"verbs"},
+  {e:"To cry",m:"रडणे",r:"Radne",s:"रोदितुम्",sr:"Roditum",f:"Pleurer",fr:"Pluh-ray",c:"verbs"},
   // Nature
-  {e:"Sun",m:"सूर्य",r:"Soorya",s:"सूर्यः",sr:"Sooryah",c:"nature"},
-  {e:"Moon",m:"चंद्र",r:"Chandr",s:"चन्द्रः",sr:"Chandrah",c:"nature"},
-  {e:"Rain",m:"पाऊस",r:"Paaoos",s:"वर्षा",sr:"Varshaa",c:"nature"},
-  {e:"Wind",m:"वारा",r:"Vaaraa",s:"वायुः",sr:"Vaayuh",c:"nature"},
-  {e:"Tree",m:"झाड",r:"Jhaad",s:"वृक्षः",sr:"Vrukshah",c:"nature"},
-  {e:"Flower",m:"फूल",r:"Phool",s:"पुष्पम्",sr:"Pushpam",c:"nature"},
-  {e:"River",m:"नदी",r:"Nadi",s:"नदी",sr:"Nadee",c:"nature"},
-  {e:"Sky",m:"आकाश",r:"Aakaash",s:"आकाशम्",sr:"Aakaasham",c:"nature"},
-  {e:"Fire",m:"आग",r:"Aag",s:"अग्निः",sr:"Agnih",c:"nature"},
-  {e:"Earth",m:"पृथ्वी",r:"Pruthvi",s:"पृथ्वी",sr:"Pruthvee",c:"nature"},
+  {e:"Sun",m:"सूर्य",r:"Soorya",s:"सूर्यः",sr:"Sooryah",f:"Soleil",fr:"So-lay",c:"nature"},
+  {e:"Moon",m:"चंद्र",r:"Chandr",s:"चन्द्रः",sr:"Chandrah",f:"Lune",fr:"Loon",c:"nature"},
+  {e:"Rain",m:"पाऊस",r:"Paaoos",s:"वर्षा",sr:"Varshaa",f:"Pluie",fr:"Plwee",c:"nature"},
+  {e:"Wind",m:"वारा",r:"Vaaraa",s:"वायुः",sr:"Vaayuh",f:"Vent",fr:"Vahn",c:"nature"},
+  {e:"Tree",m:"झाड",r:"Jhaad",s:"वृक्षः",sr:"Vrukshah",f:"Arbre",fr:"Ar-bruh",c:"nature"},
+  {e:"Flower",m:"फूल",r:"Phool",s:"पुष्पम्",sr:"Pushpam",f:"Fleur",fr:"Fluhr",c:"nature"},
+  {e:"River",m:"नदी",r:"Nadi",s:"नदी",sr:"Nadee",f:"Rivière",fr:"Ree-vyehr",c:"nature"},
+  {e:"Sky",m:"आकाश",r:"Aakaash",s:"आकाशम्",sr:"Aakaasham",f:"Ciel",fr:"Syel",c:"nature"},
+  {e:"Fire",m:"आग",r:"Aag",s:"अग्निः",sr:"Agnih",f:"Feu",fr:"Fuh",c:"nature"},
+  {e:"Earth",m:"पृथ्वी",r:"Pruthvi",s:"पृथ्वी",sr:"Pruthvee",f:"Terre",fr:"Tehr",c:"nature"},
 ];
 
 var recog=null, deferredPrompt=null, currentVocabCat='all', currentVocabSearch='';
@@ -559,21 +589,21 @@ function showErr(m){var e=document.getElementById('err');e.textContent=m;e.style
 function hideErr(){document.getElementById('err').style.display='none';}
 
 var DEMOS={
-  "hello, how are you?":      {marathi:"नमस्कार! तुम्ही कसे आहात?", marathi_roman:"Namaskaar! Tumhi kase aahat?", marathi_tip:"Use कसे for male, कशा for female", sanskrit:"नमस्ते! भवान् कथम् अस्ति?", sanskrit_roman:"Namaste! Bhavaan katham asti?", sanskrit_tip:"भवान् is formal 'you' in Sanskrit"},
-  "i am hungry":              {marathi:"मला भूक लागली आहे", marathi_roman:"Mala bhook laagali aahe", marathi_tip:"Literally: hunger has arrived to me", sanskrit:"मम क्षुधा लगति", sanskrit_roman:"Mama kshudha lagati", sanskrit_tip:"क्षुधा means hunger in Sanskrit"},
-  "where is the bathroom?":   {marathi:"शौचालय कुठे आहे?", marathi_roman:"Shauchalay kuthe aahe?", marathi_tip:"कुठे means where — use it everywhere!", sanskrit:"शौचालयम् कुत्र अस्ति?", sanskrit_roman:"Shauchalayam kutra asti?", sanskrit_tip:"कुत्र means where in Sanskrit"},
-  "how much does this cost?": {marathi:"हे किती रुपयांना आहे?", marathi_roman:"He kiti rupayanna aahe?", marathi_tip:"किती means how much/many", sanskrit:"इदम् कियत् मूल्यम् अस्ति?", sanskrit_roman:"Idam kiyat moolyam asti?", sanskrit_tip:"मूल्यम् means price/value"},
-  "mujhe paani chahiye":      {marathi:"मला पाणी हवे आहे", marathi_roman:"Mala paani have aahe", marathi_tip:"हवे आहे means I need/want", sanskrit:"मह्यम् जलम् आवश्यकम्", sanskrit_roman:"Mahyam jalam aavashyakam", sanskrit_tip:"जलम् is the Sanskrit word for water"},
-  "main thak gaya hoon":      {marathi:"मी थकलो आहे", marathi_roman:"Mi thaklo aahe", marathi_tip:"Use थकले if you are female", sanskrit:"अहम् श्रान्तः अस्मि", sanskrit_roman:"Aham shraantah asmi", sanskrit_tip:"श्रान्त means tired/exhausted"},
-  "mujhe marathi seekhna hai":{marathi:"मला मराठी शिकायची आहे", marathi_roman:"Mala Marathi shikaychi aahe", marathi_tip:"Great sentence to introduce yourself!", sanskrit:"मह्यम् मराठीभाषा शिक्षणीया अस्ति", sanskrit_roman:"Mahyam Marathi bhaasha shikshaneeyaa asti", sanskrit_tip:"Sanskrit is the mother of Marathi"},
-  "thank you very much":      {marathi:"खूप खूप धन्यवाद", marathi_roman:"Khup khup dhanyavaad", marathi_tip:"खूप means very/a lot", sanskrit:"अतीव धन्यवादः", sanskrit_roman:"Ateeva dhanyavaadah", sanskrit_tip:"धन्यवाद comes directly from Sanskrit"},
-  "i don't understand":       {marathi:"मला समजत नाही", marathi_roman:"Mala samajat naahi", marathi_tip:"Very useful phrase when learning!", sanskrit:"अहम् न बुध्यामि", sanskrit_roman:"Aham na budhyaami", sanskrit_tip:"बुध् means to know/understand"},
-  "please speak slowly":      {marathi:"कृपया हळू बोला", marathi_roman:"Krupaya halu bola", marathi_tip:"कृपया is the polite please in Marathi", sanskrit:"कृपया मन्दम् वदतु", sanskrit_roman:"Krupaya mandam vadatu", sanskrit_tip:"कृपया is used in both Marathi and Sanskrit"},
-  "good morning":             {marathi:"शुभ प्रभात", marathi_roman:"Shubh Prabhaat", marathi_tip:"Formal Marathi morning greeting", sanskrit:"शुभं प्रभातम्", sanskrit_roman:"Shubham praabhatan", sanskrit_tip:"Marathi शुभ प्रभात comes from this Sanskrit phrase"},
-  "good night":               {marathi:"शुभ रात्री", marathi_roman:"Shubh Raatri", marathi_tip:"रात्री means night in Marathi", sanskrit:"शुभरात्रिः", sanskrit_roman:"Shubha-raatri", sanskrit_tip:"Same root word in both languages"},
-  "i love you":               {marathi:"मी तुझ्यावर प्रेम करतो", marathi_roman:"Mi tujhyavar prem karto", marathi_tip:"Use करते if you are female", sanskrit:"अहम् त्वयि प्रेम करोमि", sanskrit_roman:"Aham tvayi prema karomi", sanskrit_tip:"प्रेम is the same word in both languages!"},
-  "what is your name?":       {marathi:"तुमचं नाव काय आहे?", marathi_roman:"Tumcha naav kaay aahe?", marathi_tip:"Use तुझं for friends, तुमचं for elders", sanskrit:"भवतः नाम किम् अस्ति?", sanskrit_roman:"Bhavatah naama kim asti?", sanskrit_tip:"भवतः is respectful you in Sanskrit"},
-  "i am from mumbai":         {marathi:"मी मुंबईचा आहे", marathi_roman:"Mi Mumbaicha aahe", marathi_tip:"Use मुंबईची if you are female", sanskrit:"अहम् मुम्बईनगरात् अस्मि", sanskrit_roman:"Aham Mumbai-nagaraat asmi", sanskrit_tip:"नगर means city in Sanskrit"},
+  "hello, how are you?":      {marathi:"नमस्कार! तुम्ही कसे आहात?",marathi_roman:"Namaskaar! Tumhi kase aahat?",marathi_tip:"Use कसे for male, कशा for female",sanskrit:"नमस्ते! भवान् कथम् अस्ति?",sanskrit_roman:"Namaste! Bhavaan katham asti?",sanskrit_tip:"भवान् is formal 'you' in Sanskrit",french:"Bonjour ! Comment allez-vous ?",french_roman:"Bon-zhoor! Ko-mahn tah-lay voo?",french_tip:"Use 'tu' for friends, 'vous' for elders"},
+  "i am hungry":              {marathi:"मला भूक लागली आहे",marathi_roman:"Mala bhook laagali aahe",marathi_tip:"Literally: hunger has arrived to me",sanskrit:"मम क्षुधा लगति",sanskrit_roman:"Mama kshudha lagati",sanskrit_tip:"क्षुधा means hunger in Sanskrit",french:"J'ai faim",french_roman:"Zhay fam",french_tip:"Literally 'I have hunger' in French"},
+  "where is the bathroom?":   {marathi:"शौचालय कुठे आहे?",marathi_roman:"Shauchalay kuthe aahe?",marathi_tip:"कुठे means where!",sanskrit:"शौचालयम् कुत्र अस्ति?",sanskrit_roman:"Shauchalayam kutra asti?",sanskrit_tip:"कुत्र means where in Sanskrit",french:"Où sont les toilettes ?",french_roman:"Oo sohn lay twah-let?",french_tip:"Very useful phrase when travelling in France"},
+  "how much does this cost?": {marathi:"हे किती रुपयांना आहे?",marathi_roman:"He kiti rupayanna aahe?",marathi_tip:"किती means how much/many",sanskrit:"इदम् कियत् मूल्यम् अस्ति?",sanskrit_roman:"Idam kiyat moolyam asti?",sanskrit_tip:"मूल्यम् means price/value",french:"Combien ça coûte ?",french_roman:"Kom-byeh sa koot?",french_tip:"'Ça' is informal for 'this/that'"},
+  "mujhe paani chahiye":      {marathi:"मला पाणी हवे आहे",marathi_roman:"Mala paani have aahe",marathi_tip:"हवे आहे means I need/want",sanskrit:"मह्यम् जलम् आवश्यकम्",sanskrit_roman:"Mahyam jalam aavashyakam",sanskrit_tip:"जलम् is the Sanskrit word for water",french:"J'ai besoin d'eau",french_roman:"Zhay buh-zwah doh",french_tip:"'Eau' means water in French"},
+  "main thak gaya hoon":      {marathi:"मी थकलो आहे",marathi_roman:"Mi thaklo aahe",marathi_tip:"Use थकले if you are female",sanskrit:"अहम् श्रान्तः अस्मि",sanskrit_roman:"Aham shraantah asmi",sanskrit_tip:"श्रान्त means tired/exhausted",french:"Je suis fatigué",french_roman:"Zhuh swee fah-tee-gay",french_tip:"Use 'fatiguée' if you are female"},
+  "mujhe marathi seekhna hai":{marathi:"मला मराठी शिकायची आहे",marathi_roman:"Mala Marathi shikaychi aahe",marathi_tip:"Great sentence to introduce yourself!",sanskrit:"मह्यम् मराठीभाषा शिक्षणीया अस्ति",sanskrit_roman:"Mahyam Marathi bhaasha shikshaneeyaa asti",sanskrit_tip:"Sanskrit is the mother of Marathi",french:"Je veux apprendre le marathi",french_roman:"Zhuh vuh ah-prahn-druh luh mah-rah-tee",french_tip:"'Veux' comes from the verb 'vouloir' — to want"},
+  "thank you very much":      {marathi:"खूप खूप धन्यवाद",marathi_roman:"Khup khup dhanyavaad",marathi_tip:"खूप means very/a lot",sanskrit:"अतीव धन्यवादः",sanskrit_roman:"Ateeva dhanyavaadah",sanskrit_tip:"धन्यवाद comes directly from Sanskrit",french:"Merci beaucoup",french_roman:"Mehr-see boh-koo",french_tip:"'Beaucoup' means a lot/very much"},
+  "i don't understand":       {marathi:"मला समजत नाही",marathi_roman:"Mala samajat naahi",marathi_tip:"Very useful when learning!",sanskrit:"अहम् न बुध्यामि",sanskrit_roman:"Aham na budhyaami",sanskrit_tip:"बुध् means to know/understand",french:"Je ne comprends pas",french_roman:"Zhuh nuh kom-prahn pah",french_tip:"A very important phrase for travellers!"},
+  "please speak slowly":      {marathi:"कृपया हळू बोला",marathi_roman:"Krupaya halu bola",marathi_tip:"कृपया is the polite please",sanskrit:"कृपया मन्दम् वदतु",sanskrit_roman:"Krupaya mandam vadatu",sanskrit_tip:"कृपया is used in both Marathi and Sanskrit",french:"Parlez lentement s'il vous plaît",french_roman:"Par-lay lahn-tuh-mahn seel voo play",french_tip:"'S'il vous plaît' means please in French"},
+  "good morning":             {marathi:"शुभ प्रभात",marathi_roman:"Shubh Prabhaat",marathi_tip:"Formal Marathi morning greeting",sanskrit:"शुभं प्रभातम्",sanskrit_roman:"Shubham praabhaatam",sanskrit_tip:"Marathi शुभ प्रभात comes from Sanskrit",french:"Bonjour",french_roman:"Bon-zhoor",french_tip:"Used until around noon in France"},
+  "good night":               {marathi:"शुभ रात्री",marathi_roman:"Shubh Raatri",marathi_tip:"रात्री means night in Marathi",sanskrit:"शुभरात्रिः",sanskrit_roman:"Shubha-raatri",sanskrit_tip:"Same root word in both languages",french:"Bonne nuit",french_roman:"Bon nwee",french_tip:"Said when going to sleep"},
+  "i love you":               {marathi:"मी तुझ्यावर प्रेम करतो",marathi_roman:"Mi tujhyavar prem karto",marathi_tip:"Use करते if you are female",sanskrit:"अहम् त्वयि प्रेम करोमि",sanskrit_roman:"Aham tvayi prema karomi",sanskrit_tip:"प्रेम is the same word in both languages!",french:"Je t'aime",french_roman:"Zhuh tem",french_tip:"The most famous French phrase in the world!"},
+  "what is your name?":       {marathi:"तुमचं नाव काय आहे?",marathi_roman:"Tumcha naav kaay aahe?",marathi_tip:"Use तुझं for friends, तुमचं for elders",sanskrit:"भवतः नाम किम् अस्ति?",sanskrit_roman:"Bhavatah naama kim asti?",sanskrit_tip:"भवतः is respectful 'you' in Sanskrit",french:"Comment vous appelez-vous ?",french_roman:"Ko-mahn voo zah-play voo?",french_tip:"Literally 'How do you call yourself?'"},
+  "i am from mumbai":         {marathi:"मी मुंबईचा आहे",marathi_roman:"Mi Mumbaicha aahe",marathi_tip:"Use मुंबईची if you are female",sanskrit:"अहम् मुम्बईनगरात् अस्मि",sanskrit_roman:"Aham Mumbai-nagaraat asmi",sanskrit_tip:"नगर means city in Sanskrit",french:"Je viens de Mumbai",french_roman:"Zhuh vyeh duh Mumbai",french_tip:"'Viens de' means 'come from'"},
 };
 
 // ── SHOW RESULT HELPER ──
@@ -584,6 +614,9 @@ function showResult(d){
   document.getElementById('out-sanskrit').textContent=d.sanskrit||'—';
   document.getElementById('out-sanskrit-roman').textContent=d.sanskrit_roman||'';
   document.getElementById('out-sanskrit-tip').textContent=d.sanskrit_tip||'';
+  document.getElementById('out-french').textContent=d.french||'—';
+  document.getElementById('out-french-roman').textContent=d.french_roman||'';
+  document.getElementById('out-french-tip').textContent=d.french_tip||'';
   document.getElementById('result-wrap').classList.add('show');
   document.getElementById('result-wrap').scrollIntoView({behavior:'smooth',block:'nearest'});
   setStatus('');
@@ -601,7 +634,7 @@ function doTranslate(){
 
   var btn=document.getElementById('gobtn');
   btn.disabled=true;btn.textContent='Translating…';
-  setStatus('Getting Marathi & Sanskrit…');
+  setStatus('Getting Marathi, Sanskrit & French…');
   document.getElementById('result-wrap').classList.remove('show');
 
   fetch('/api/translate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text})})
@@ -626,8 +659,11 @@ function speakText(text, lang){
     best=voices.find(function(v){return v.lang==='mr-IN'||v.lang==='mr';});
     if(!best) best=voices.find(function(v){return v.lang==='hi-IN'||v.lang.startsWith('hi');});
     u.lang=best?best.lang:'hi-IN';
+  } else if(lang==='fr'){
+    best=voices.find(function(v){return v.lang==='fr-FR'||v.lang==='fr-CA'||v.lang.startsWith('fr');});
+    u.lang=best?best.lang:'fr-FR';
   } else {
-    // Sanskrit — use hi-IN (same Devanagari, closest available)
+    // Sanskrit — use hi-IN (same Devanagari script)
     best=voices.find(function(v){return v.lang==='sa-IN'||v.lang==='sa';});
     if(!best) best=voices.find(function(v){return v.lang==='hi-IN'||v.lang.startsWith('hi');});
     u.lang=best?best.lang:'hi-IN';
@@ -664,7 +700,7 @@ function renderVocab(){
   var filtered=VOCAB.filter(function(w){
     var matchCat=currentVocabCat==='all'||w.c===currentVocabCat;
     var q=currentVocabSearch.toLowerCase();
-    var matchSearch=!q||w.e.toLowerCase().indexOf(q)>-1||w.m.indexOf(q)>-1||(w.s&&w.s.indexOf(q)>-1)||w.r.toLowerCase().indexOf(q)>-1;
+    var matchSearch=!q||w.e.toLowerCase().indexOf(q)>-1||w.m.indexOf(q)>-1||(w.s&&w.s.indexOf(q)>-1)||(w.f&&w.f.toLowerCase().indexOf(q)>-1)||w.r.toLowerCase().indexOf(q)>-1;
     return matchCat&&matchSearch;
   });
   list.innerHTML='';
@@ -685,7 +721,7 @@ function renderVocab(){
     var cSpan=document.createElement('span');cSpan.className='vocab-cat';cSpan.textContent=catLabel(w.c);
     topRow.appendChild(eDiv);topRow.appendChild(cSpan);
 
-    // Lang boxes — Marathi + Sanskrit side by side
+    // Lang boxes — Marathi + Sanskrit + French
     var langsDiv=document.createElement('div');langsDiv.className='vocab-langs';
 
     // Marathi box
@@ -708,10 +744,19 @@ function renderVocab(){
     skSpk.addEventListener('click',function(e){e.stopPropagation();speakText(w.s||w.m,'sa');});
     skBox.appendChild(skLbl);skBox.appendChild(skTxt);skBox.appendChild(skRom);skBox.appendChild(skSpk);
 
-    langsDiv.appendChild(mrBox);langsDiv.appendChild(skBox);
+    // French box
+    var frBox=document.createElement('div');frBox.className='vocab-lang-box';frBox.style.borderColor='rgba(0,85,164,.25)';
+    var frLbl=document.createElement('div');frLbl.className='vocab-lang-label';frLbl.style.color='#6ab0ff';frLbl.textContent='🇫🇷 Français';
+    var frTxt=document.createElement('div');frTxt.className='vocab-devanagari';frTxt.style.color='#6ab0ff';frTxt.style.fontFamily='Inter,sans-serif';frTxt.textContent=w.f||'—';
+    var frRom=document.createElement('div');frRom.className='vocab-roman-sm';frRom.textContent=w.fr||'';
+    var frSpk=document.createElement('button');frSpk.className='vocab-speak';frSpk.title='Hear French';frSpk.textContent='🔊';
+    frSpk.style.marginTop='6px';
+    frSpk.addEventListener('click',function(e){e.stopPropagation();speakText(w.f||'','fr');});
+    frBox.appendChild(frLbl);frBox.appendChild(frTxt);frBox.appendChild(frRom);frBox.appendChild(frSpk);
+
+    langsDiv.appendChild(mrBox);langsDiv.appendChild(skBox);langsDiv.appendChild(frBox);
     card.appendChild(topRow);card.appendChild(langsDiv);
 
-    // Tap card → translate that word
     card.addEventListener('click',function(){
       document.getElementById('inp').value=w.e;
       showPanel('translate');doTranslate();
@@ -781,6 +826,11 @@ window.addEventListener('load',function(){
   // Hear Sanskrit
   document.getElementById('hear-sanskrit').addEventListener('click',function(){
     speakText(document.getElementById('out-sanskrit').textContent,'sa');
+  });
+
+  // Hear French
+  document.getElementById('hear-french').addEventListener('click',function(){
+    speakText(document.getElementById('out-french').textContent,'fr');
   });
 
   // Auto toggle
