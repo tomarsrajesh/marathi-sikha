@@ -493,7 +493,7 @@ var VOCAB=[
   {e:"Water",m:"पाणी",r:"Paani",s:"जलम्",sr:"Jalam",f:"Eau",fr:"Oh",c:"food"},
   {e:"Food / Meal",m:"जेवण",r:"Jevan",s:"भोजनम्",sr:"Bhojanam",f:"Repas",fr:"Ruh-pah",c:"food"},
   {e:"Rice",m:"भात",r:"Bhaat",s:"ओदनम्",sr:"Odanam",f:"Riz",fr:"Ree",c:"food"},
-  {e:"Bread",m:"पोळी",r:"Poli",s:"रोटिका",sr:"Rotika",f:"Pain",fr:"Pan",c:"food"},
+  {e:"Bread / Roti",m:"पोळी / रोटी",r:"Poli / Roti",s:"रोटिका",sr:"Rotika",f:"Pain / Roti",fr:"Pan / Ro-tee",c:"food"},
   {e:"Milk",m:"दूध",r:"Doodh",s:"दुग्धम्",sr:"Dugdham",f:"Lait",fr:"Lay",c:"food"},
   {e:"Tea",m:"चहा",r:"Chahaa",s:"चायः",sr:"Chaayah",f:"Thé",fr:"Tay",c:"food"},
   {e:"Sugar",m:"साखर",r:"Saakhar",s:"शर्करा",sr:"Sharkaraa",f:"Sucre",fr:"Soo-kruh",c:"food"},
@@ -699,16 +699,41 @@ function renderVocab(){
   if(!list)return;
   var filtered=VOCAB.filter(function(w){
     var matchCat=currentVocabCat==='all'||w.c===currentVocabCat;
-    var q=currentVocabSearch.toLowerCase();
-    var matchSearch=!q||w.e.toLowerCase().indexOf(q)>-1||w.m.indexOf(q)>-1||(w.s&&w.s.indexOf(q)>-1)||(w.f&&w.f.toLowerCase().indexOf(q)>-1)||w.r.toLowerCase().indexOf(q)>-1;
+    var q=currentVocabSearch.toLowerCase().trim();
+    var matchSearch=!q||
+    w.e.toLowerCase().indexOf(q)>-1||
+    w.m.indexOf(q)>-1||
+    w.r.toLowerCase().indexOf(q)>-1||
+    (w.s&&w.s.indexOf(q)>-1)||
+    (w.sr&&w.sr.toLowerCase().indexOf(q)>-1)||
+    (w.f&&w.f.toLowerCase().indexOf(q)>-1)||
+    (w.fr&&w.fr.toLowerCase().indexOf(q)>-1);
     return matchCat&&matchSearch;
   });
   list.innerHTML='';
   if(filtered.length===0){
-    var msg=document.createElement('div');
-    msg.style.cssText='text-align:center;padding:30px;color:var(--text3);font-size:14px;';
-    msg.textContent='No words found. Try a different search.';
-    list.appendChild(msg);return;
+    // Not in vocab — fetch from AI automatically!
+    var q = currentVocabSearch.trim();
+    if(q.length > 0){
+      list.innerHTML='';
+      var fetchBox = document.createElement('div');
+      fetchBox.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;';
+      fetchBox.innerHTML='<div style="font-size:13px;color:var(--text2);margin-bottom:10px;">🔍 <b style=\'color:var(--text);\'>"'+q+'"</b> not in vocabulary</div>'
+        +'<button id="fetch-vocab-btn" style="padding:10px 20px;background:var(--ig);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">✨ Translate with AI →</button>'
+        +'<div style="font-size:11px;color:var(--text3);margin-top:8px;">Get Marathi, Sanskrit & French instantly</div>';
+      list.appendChild(fetchBox);
+      document.getElementById('fetch-vocab-btn').addEventListener('click', function(){
+        document.getElementById('inp').value = q;
+        showPanel('translate');
+        doTranslate();
+      });
+    } else {
+      var msg=document.createElement('div');
+      msg.style.cssText='text-align:center;padding:30px;color:var(--text3);font-size:14px;';
+      msg.textContent='Type a word to search or translate.';
+      list.appendChild(msg);
+    }
+    return;
   }
   filtered.forEach(function(w){
     var card=document.createElement('div');
@@ -842,7 +867,17 @@ window.addEventListener('load',function(){
 
   // Vocab search
   var vs=document.getElementById('vocab-search');
-  if(vs){vs.addEventListener('input',function(){currentVocabSearch=this.value;renderVocab();});}
+  if(vs){
+    vs.addEventListener('input',function(){currentVocabSearch=this.value;renderVocab();});
+    vs.addEventListener('keydown',function(e){
+      if(e.key==='Enter' && currentVocabSearch.trim()){
+        // Enter in vocab search — go translate it
+        document.getElementById('inp').value=currentVocabSearch.trim();
+        showPanel('translate');
+        doTranslate();
+      }
+    });
+  }
 
   // Mic
   document.getElementById('micbtn').addEventListener('click',function(){
