@@ -7,7 +7,6 @@
     { "source": "/icon-512.png", "destination": "/public/icon-512.png" },
     { "source": "/apple-touch-icon.png", "destination": "/public/apple-touch-icon.png" },
     { "source": "/manifest.json", "destination": "/public/manifest.json" },
-    { "source": "/sw.js", "destination": "/public/sw.js" },
-    { "source": "/(.*)", "destination": "/public/index.html" }
+    { "source": "/sw.js", "destination": "/public/sw.js" }
   ]
 }
